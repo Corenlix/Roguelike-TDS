@@ -21,6 +21,13 @@ public class PlayerWeaponsControl : MonoBehaviour
             _ammoCounts.Add(ammoType, 0);
         }
     }
+    
+    private void ResetWeapons()
+    {
+        weapons.ForEach(x=>x.gameObject.SetActive(false));
+        _selectedWeaponNumber = 0;
+        ChangeSelectedWeapon();
+    }
     private void Shoot()
     {
         var selectedWeapon = weapons[_selectedWeaponNumber];
@@ -57,7 +64,8 @@ public class PlayerWeaponsControl : MonoBehaviour
     private void Start()
     {
         ResetAmmoCount();
-
+        ResetWeapons();
+        
         _ammoCounts[Weapon.AmmoTypes.Pistol] = 20;
     }
 }

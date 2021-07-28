@@ -21,7 +21,7 @@ public abstract class EntityAim : MonoBehaviour
         float angle = Mathf.Atan2(aimDirection.y, Mathf.Abs(aimDirection.x)) * Mathf.Rad2Deg;
         var weaponRotation = new Vector3(0, 0, angle);
         weapon.transform.localRotation = Quaternion.Euler(weaponRotation);
-        weapon.WeaponSpriteRenderer.sortingOrder = aimDirection.y > 0 ? 0 : 2;
+        weapon.waponSpriteRenderer.sortingOrder = aimDirection.y > 0 ? 0 : 2;
         
         Vector3 playerRotation = weaponOwner.rotation.eulerAngles;
         int xScaleModifier = aimDirection.x < 0 ? -1 : 1;

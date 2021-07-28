@@ -2,12 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [Serializable]
 public abstract class Weapon : MonoBehaviour
 {
-    public SpriteRenderer WeaponSpriteRenderer;
+    public SpriteRenderer waponSpriteRenderer;
     
     [SerializeField] protected Transform shootPoint;
     [SerializeField] protected float reloadTime;

@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponSpriteRenderer: {fileID: 513718663854661848}
   shootPoint: {fileID: 9143501261261072394}
-  reloadTime: 0.2
+  reloadTime: 0.1
   weaponAnimator: {fileID: 8073807217276489867}
   ammoType: 0
   bullet: {fileID: 9079008603495397016, guid: 2e46823076736f64c96e897d73247546, type: 3}
