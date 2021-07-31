@@ -7,17 +7,14 @@ namespace LevelGeneration
     {
         [SerializeField] private LevelCreator levelCreator;
         [SerializeField] private LevelDrawer levelDrawer;
-
+        [SerializeField] private Transform player;
+        
         private void SpawnLevel()
         {
             var level = levelCreator.CreateLevel();
-            levelDrawer.DrawLevel(level);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-                SpawnLevel();
+            var entitySpawner = new EntitySpawner(level, player);
+            entitySpawner.MovePlayer();
+            levelDrawer.DrawLevel(level.LevelCells);
         }
 
         private void Start()

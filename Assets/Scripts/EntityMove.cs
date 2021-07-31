@@ -7,7 +7,7 @@ public class EntityMove : MonoBehaviour
 {
     [SerializeField] private float movementSpeed;
     
-    protected Vector2 MoveDirection;
+    private Vector2 _moveDirection;
     
     [SerializeField] private Animator bodyAnimator;
     
@@ -19,11 +19,14 @@ public class EntityMove : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
     }
-
-    
     private void FixedUpdate()
     {
-        _rigidbody.velocity = MoveDirection.normalized * movementSpeed;
+        _rigidbody.velocity = _moveDirection * movementSpeed;
         bodyAnimator.SetBool(IsRunningAnimationId, _rigidbody.velocity.sqrMagnitude > 0);
+    }
+
+    public void SetMoveDirection(Vector2 direction)
+    {
+        _moveDirection = direction.normalized;
     }
 }

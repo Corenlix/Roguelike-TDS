@@ -6,7 +6,9 @@ using Random = UnityEngine.Random;
 
 namespace LevelGeneration
 {
-    class LevelCreator : MonoBehaviour
+    
+    [CreateAssetMenu(menuName = "ScriptableObjects/LevelCreator", order = 1)]
+    class LevelCreator : ScriptableObject
     {
         DungeonFragment rootDungeon;
         [SerializeField] private int levelSize = 64;
@@ -23,7 +25,7 @@ namespace LevelGeneration
         
         private CellType[,] level;
         
-        public CellType[,] CreateLevel()
+        public Level CreateLevel()
         {
             InitLevel();
             InitDungeonFragmentVariables();
@@ -49,7 +51,7 @@ namespace LevelGeneration
                 LetWalkerToRoom(room.Rect);
             }
 
-            return level;
+            return new Level(level, rootDungeon);
         }
         private void InitDungeonFragmentVariables()
         {
@@ -84,7 +86,8 @@ namespace LevelGeneration
             {
                 for (int j = roomRect.y; j <= roomRect.yMax; j++)
                 {
-                    level[i, j] = cellsType;
+                    if (i < level.GetLength(0) && j < level.GetLength(1) && i > 0 && j > 0)
+                        level[i, j] = cellsType;
                 }
             }
         }
