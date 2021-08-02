@@ -1,36 +1,45 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+namespace Pathfinding
 {
-    public int F => G + H;
-    public int G = Int32.MaxValue, H;
-
-    public int X { get; }
-
-    public int Y { get; }
-
-    public Node(int x, int y)
+    internal class Node
     {
-        this.X = x;
-        this.Y = y;
-    }
+        public int F => G + H;
+        public int G = int.MaxValue, H;
 
-    public Node previousNode;
+        public int X { get; }
 
-    public List<Vector2Int> GetPathToRootNode()
-    {
-        var path = new List<Vector2Int>();
-        path.Add(new Vector2Int(X, Y));
+        public int Y { get; }
 
-        if (previousNode != null)
-            path.AddRange(previousNode.GetPathToRootNode());
+        public Node(int x, int y, bool wall)
+        {
+            X = x;
+            Y = y;
+            Wall = wall;
+        }
+
+        public Node PreviousNode;
+
+        public void ResetNode()
+        {
+            Closed = false;
+            G = int.MaxValue;
+            H = 0;
+            PreviousNode = null;
+        }
+        public List<Vector2Int> GetPathToRootNode()
+        {
+            var path = new List<Vector2Int>();
+            path.Add(new Vector2Int(X, Y));
+
+            if (PreviousNode != null)
+                path.AddRange(PreviousNode.GetPathToRootNode());
         
-        return path;
+            return path;
+        }
+
+        public bool Closed, Wall;
+
     }
-
-    public bool Available, Wall;
-
 }

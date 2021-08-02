@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace LevelGeneration
 {
-    class Corridor
+    internal class Corridor
     {
-        public Corridor(List<RectInt> rects) 
+        public Corridor(List<RectInt> rects)
         {
             Rects = rects;
         }
 
-        public readonly List<RectInt> Rects = new List<RectInt>();
+        public readonly List<RectInt> Rects;
         public int GetSize() 
         {
             int size = 0;

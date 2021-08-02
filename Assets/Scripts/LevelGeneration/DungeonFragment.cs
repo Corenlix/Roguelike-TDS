@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace LevelGeneration
 {
-    class DungeonFragment
+    internal class DungeonFragment
     {
-        public RectInt Rect;
+        private RectInt _rect;
         
         
-        private readonly List<Corridor> corridors = new List<Corridor>();
-        private bool isRoom;
-        private DungeonFragment firstChild, secondChild;
+        private readonly List<Corridor> _corridors = new List<Corridor>();
+        private bool _isRoom;
+        private DungeonFragment _firstChild, _secondChild;
 
         [Range(0, 5)]
         public static float MaxSizeDivide = 1.5f;
@@ -24,39 +24,39 @@ namespace LevelGeneration
 
         public DungeonFragment(RectInt rect) 
         {
-            Rect = rect;
+            this._rect = rect;
         }
         public void SplitDungeon(int iterationsCount) 
         {
             Split(iterationsCount);
         }
 
-        public List<DungeonFragment> GetRooms()
+        public List<RectInt> GetRooms()
         {
-            var rooms = new List<DungeonFragment>();
+            var rooms = new List<RectInt>();
 
-            if (isRoom) 
+            if (_isRoom) 
             {
-                rooms.Add(this);
+                rooms.Add(_rect);
             }
             else 
             {
-                rooms.AddRange(firstChild.GetRooms());
-                rooms.AddRange(secondChild.GetRooms());
+                rooms.AddRange(_firstChild.GetRooms());
+                rooms.AddRange(_secondChild.GetRooms());
             }
 
             return rooms;
         }
         public List<RectInt> GetCorridors()
         {
-            if (isRoom)
+            if (_isRoom)
                 return new List<RectInt>();
             var corridorsRects = new List<RectInt>();
 
-            corridors.ForEach(x=> corridorsRects.AddRange(x.Rects));
+            _corridors.ForEach(x=> corridorsRects.AddRange(x.Rects));
 
-            corridorsRects.AddRange(firstChild.GetCorridors());
-            corridorsRects.AddRange(secondChild.GetCorridors());
+            corridorsRects.AddRange(_firstChild.GetCorridors());
+            corridorsRects.AddRange(_secondChild.GetCorridors());
 
             return corridorsRects;
         }
@@ -65,14 +65,14 @@ namespace LevelGeneration
         {
             var rooms = new List<RectInt>();
 
-            if (isRoom)
+            if (_isRoom)
             {
-                rooms.Add(Rect);
+                rooms.Add(_rect);
             }
             else
             {
-                rooms.AddRange(firstChild.GetRoomsRects());
-                rooms.AddRange(secondChild.GetRoomsRects());
+                rooms.AddRange(_firstChild.GetRoomsRects());
+                rooms.AddRange(_secondChild.GetRoomsRects());
             }
 
             return rooms;
@@ -85,37 +85,37 @@ namespace LevelGeneration
                 return;
             }
 
-            var newRects = SplitRect(Rect);
+            var newRects = SplitRect(_rect);
             
-            firstChild = new DungeonFragment(newRects[0]);
-            firstChild.Split(iterationsCount - 1);
+            _firstChild = new DungeonFragment(newRects[0]);
+            _firstChild.Split(iterationsCount - 1);
 
-            secondChild = new DungeonFragment(newRects[1]);
-            secondChild.Split(iterationsCount - 1);
+            _secondChild = new DungeonFragment(newRects[1]);
+            _secondChild.Split(iterationsCount - 1);
         }
         private void CreateRoom() 
         {
-            var width = GetRoomSize(Rect.width);
-            var height = GetRoomSize(Rect.height);
+            var width = GetRoomSize(_rect.width);
+            var height = GetRoomSize(_rect.height);
 
-            var x = Rect.x + Random.Range(0, Rect.width - width);
-            var y = Rect.y + Random.Range(0, Rect.height - height);
+            var x = _rect.x + Random.Range(0, _rect.width - width);
+            var y = _rect.y + Random.Range(0, _rect.height - height);
 
-            Rect = new RectInt(x, y, width, height);
+            _rect = new RectInt(x, y, width, height);
 
-            isRoom = true;
+            _isRoom = true;
         }
 
         public void CreateCorridors() 
         {
-            if (isRoom)
+            if (_isRoom)
                 return;
 
-            firstChild.CreateCorridors();            
-            secondChild.CreateCorridors();
+            _firstChild.CreateCorridors();            
+            _secondChild.CreateCorridors();
 
-            var newCorridor = GetPossibleCorridorBetweenFragments(firstChild, secondChild);
-            corridors.Add(newCorridor);
+            var newCorridor = GetPossibleCorridorBetweenFragments(_firstChild, _secondChild);
+            _corridors.Add(newCorridor);
         }
         private static Corridor GetPossibleCorridorBetweenFragments(DungeonFragment firstFragment, DungeonFragment secondFragment, bool searchShortestWay = true, bool includingCorridors = true) 
         {

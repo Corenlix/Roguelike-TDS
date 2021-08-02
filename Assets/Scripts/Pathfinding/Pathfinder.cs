@@ -1,128 +1,145 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using LevelGeneration;
 using UnityEngine;
 
-public class Pathfinder
+namespace Pathfinding
 {
-    private const int STRAIGHT_MOVING_COST = 10;
-    private const int DIAGONAL_MOVING_COST = 14;
-
-    private CellType[,] level;
-    private Node[,] nodes;
-    private List<Node> openedNodes;
-    private Vector2Int endPoint;
-
-    public Pathfinder(CellType[,] level)
+    public class Pathfinder
     {
-        this.level = level;
-    }
-    public List<Vector2Int> FindPath(Vector2Int pointA, Vector2Int pointB)
-    {
-        GenerateNodesFromLevel();
+        private const int StraightMovingCost = 10;
+        private const int DiagonalMovingCost = 14;
+
+        private readonly Level level;
+        private Node[,] nodes;
+        private List<Node> openedNodes;
+        private Vector2Int endPoint;
         
-        openedNodes = new List<Node>();
-        var firstNode = OpenNode(pointA);
-        firstNode.G = 0;
-        
-        endPoint = pointB;
-        
-        while (openedNodes.Count > 0)
+        public Pathfinder(Level level)
         {
-            var selectedNode = GetMinFNode();
-
-            if (selectedNode.X == endPoint.x && selectedNode.Y == endPoint.y)
+            this.level = level;
+            GenerateNodesFromLevel();
+        }
+        public List<Vector2Int> FindPath(Vector2 pointA, Vector2 pointB)
+        {
+            foreach (var node in nodes)
             {
-                return selectedNode.GetPathToRootNode();
+                node.ResetNode();
             }
-            CheckNodesAroundNode(selectedNode);
-            selectedNode.Available = false;
-            openedNodes.Remove(selectedNode);
-
-        }
-
-        return null;
-    }
-
-    private Node GetMinFNode()
-    {
-        var minNode = openedNodes[0];
-        foreach (var node in openedNodes)
-        {
-            if (node.F < minNode.F)
-                minNode = node;
-        }
-
-        return minNode;
-    }
-    private Node OpenNode(Vector2Int position)
-    {
-        var node = nodes[position.x, position.y];
-        if (node.F == Int32.MaxValue && node.Available)
-        {
-            openedNodes.Add(node);
-            node.H = GetH(position);
-        }
-        return node;
-    }
-
-    private void CheckNodesAroundNode(Node node)
-    {
-        for (int i = -1; i <= 1; i++)
-        {
-            for (int j = -1; j <= 1; j++)
+        
+            openedNodes = new List<Node>();
+            var firstNode = OpenNode(new Vector2Int(Mathf.RoundToInt(pointB.x), Mathf.RoundToInt(pointB.y)));
+            firstNode.G = 0;
+        
+            endPoint = new Vector2Int(Mathf.RoundToInt(pointA.x), Mathf.RoundToInt(pointA.y));
+        
+            while (openedNodes.Count > 0)
             {
-                if (i == 0 && j == 0)
-                    continue;
-                
-                var checkX = node.X + i;
-                var checkY = node.Y + j;
+                var selectedNode = GetMinFNode();
 
-                //get out of bounds
-                if (checkX < 0 || checkY < 0 || checkX >= level.GetLength(0) || checkY >= level.GetLength(1))
-                    continue;
-                
-                //is diagonal path available
-                if(nodes[checkX, node.Y].Wall || nodes[node.X, checkY].Wall)
-                    continue;
-                
-                var checkNode = OpenNode(new Vector2Int(checkX, checkY));
-                if (!checkNode.Available)
-                    continue;
-
-                int gCost = node.G;
-                if (i == 0 || j == 0)
-                    gCost += STRAIGHT_MOVING_COST;
-                else gCost += DIAGONAL_MOVING_COST;
-
-                if (checkNode.G > gCost)
+                if (selectedNode.X == endPoint.x && selectedNode.Y == endPoint.y)
                 {
-                    checkNode.G = gCost;
-                    checkNode.previousNode = node;
+                    var path = selectedNode.GetPathToRootNode();
+                    path.RemoveAt(0);
+                    DrawPath(path);
+                    return path;
+                }
+                CheckNodesAroundNode(selectedNode);
+                selectedNode.Closed = true;
+                openedNodes.Remove(selectedNode);
+            }
+
+            return null;
+        }
+
+        private Node GetMinFNode()
+        {
+            var minNode = openedNodes[0];
+            foreach (var node in openedNodes)
+            {
+                if (node.F < minNode.F)
+                    minNode = node;
+            }
+
+            return minNode;
+        }
+        private Node OpenNode(Vector2Int position)
+        {
+            var node = nodes[position.x, position.y];
+            if (node.F == int.MaxValue && !node.Wall)
+            {
+                openedNodes.Add(node);
+                node.H = GetH(position);
+            }
+            return node;
+        }
+        private void CheckNodesAroundNode(Node node)
+        {
+            var levelCells = level.LevelCells;
+            for (int i = -1; i <= 1; i++)
+            {
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (i == 0 && j == 0)
+                        continue;
+                
+                    var checkX = node.X + i;
+                    var checkY = node.Y + j;
+
+                    //out of bounds
+                    if (checkX < 0 || checkY < 0 || checkX >= levelCells.GetLength(0) || checkY >= levelCells.GetLength(1))
+                        continue;
+                
+                    //is diagonal path available
+                    if(nodes[checkX, node.Y].Wall || nodes[node.X, checkY].Wall)
+                        continue;
+
+                    var checkNode = OpenNode(new Vector2Int(checkX, checkY));
+                    if (checkNode.Closed)
+                        continue;
+
+                    int gCost = node.G;
+                    if (i == 0 || j == 0)
+                        gCost += StraightMovingCost;
+                    else gCost += DiagonalMovingCost;
+
+                    if (checkNode.G > gCost)
+                    {
+                        checkNode.G = gCost;
+                        checkNode.PreviousNode = node;
+                    }
                 }
             }
         }
-    }
-    private int GetH(Vector2Int point)
-    {
-        var rectWidth = Mathf.Abs(point.x - endPoint.x);
-        var rectHeight = Mathf.Abs(point.y - endPoint.y);
-        var delta = Mathf.Abs(rectWidth - rectHeight);
-        return DIAGONAL_MOVING_COST * Mathf.Min(rectWidth, rectHeight) + STRAIGHT_MOVING_COST * delta;
-    }
-    private void GenerateNodesFromLevel()
-    {
-        nodes = new Node[level.GetLength(0),level.GetLength(1)];
-        for(int i = 0; i < level.GetLength(0); i++)
+        private int GetH(Vector2Int point)
         {
-            for (int j = 0; j < level.GetLength(1); j++)
+            var rectWidth = Mathf.Abs(point.x - endPoint.x);
+            var rectHeight = Mathf.Abs(point.y - endPoint.y);
+            var delta = Mathf.Abs(rectWidth - rectHeight);
+            return DiagonalMovingCost * Mathf.Min(rectWidth, rectHeight) + StraightMovingCost * delta;
+        }
+        private void GenerateNodesFromLevel()
+        {
+            var levelCells = level.LevelCells;
+            nodes = new Node[levelCells.GetLength(0),levelCells.GetLength(1)];
+            for(int i = 0; i < levelCells.GetLength(0); i++)
             {
-                var newNode = new Node(i, j);
-                newNode.Wall = level[i, j] == CellType.Wall;
-                newNode.Available = !newNode.Wall;
-                nodes[i, j] = newNode;
+                for (int j = 0; j < levelCells.GetLength(1); j++)
+                {
+                    bool nodeIsWall = levelCells[i, j] == CellType.Wall;
+                    var newNode = new Node(i, j, nodeIsWall);
+                    nodes[i, j] = newNode;
+                }
+            }
+        }
+
+        private static void DrawPath(List<Vector2Int> path)
+        {
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                var a = new Vector3(path[i].x, path[i].y);
+                var b = new Vector3(path[i + 1].x, path[i + 1].y);
+                Debug.DrawLine(a, b, Color.green, 1);
             }
         }
     }

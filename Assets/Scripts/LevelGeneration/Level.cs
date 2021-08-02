@@ -1,14 +1,19 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace LevelGeneration
 { 
-    class Level
+    public class Level
     {
         public CellType[,] LevelCells { get; }
-        public DungeonFragment RootDungeon { get; }
+        public List<RectInt> Rooms { get; }
+        public List<RectInt> Corridors { get; }
 
-        public Level(CellType[,] levelCells, DungeonFragment rootDungeon)
+        public Level(CellType[,] levelCells, List<RectInt> rooms, List<RectInt> corridors)
         {
             LevelCells = levelCells;
-            RootDungeon = rootDungeon;
+            Rooms = rooms;
+            Corridors = corridors;
         }
     }
 }

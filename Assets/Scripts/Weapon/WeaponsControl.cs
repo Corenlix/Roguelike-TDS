@@ -1,12 +1,9 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Helpers;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(AmmoController))]
-public class WeaponsControl : MonoBehaviour
+public class WeaponsControl : MonoBehaviour, IAttack
 {
     public UnityEvent<Weapon> onWeaponChanged;
     
@@ -20,8 +17,8 @@ public class WeaponsControl : MonoBehaviour
     {
         SelectedWeapon.RotateWeapon(target);
     }
-
-    public void TryShoot(Vector2 targetPosition)
+    
+    public void Attack(Vector2 targetPosition)
     { 
         var selectedWeaponAmmoType = SelectedWeapon.AmmoType;
         if (playerAmmoController.GetAmmoCount(selectedWeaponAmmoType) > 0)

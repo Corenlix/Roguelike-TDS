@@ -2,19 +2,27 @@ using UnityEngine;
 
 namespace EnemyAI
 {
+    [RequireComponent(typeof(IMovePosition))]
     public class RandomWalkState : EnemyState
     {
+        private IMovePosition movePosition;
+        [SerializeField] private Rect walkingArea; 
+        
         public override void Enter()
         {
-            //play walk animation
+            movePosition = GetComponent<IMovePosition>();
+            movePosition.MovingEnded += MoveToNewPoint;
+            MoveToNewPoint();
         }
 
-        private void Update()
+        private void MoveToNewPoint()
         {
-            transform.Translate(0, Time.deltaTime * 2, 0);
+            var newPoint = new Vector2(Random.Range(walkingArea.x, walkingArea.xMax), Random.Range(walkingArea.y, walkingArea.yMax));
+            movePosition.SetMovePoint(newPoint);
         }
         public override void Exit()
         {
+            movePosition.MovingEnded -= MoveToNewPoint;
         }
     }
 }

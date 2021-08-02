@@ -177,9 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9925bf78fdc3141a05fa998a0a7368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 513718663854661848}
   shootPoint: {fileID: 9143501261261072394}
-  reloadTime: 0.3
   weaponAnimator: {fileID: 8073807217276489867}
-  ammoType: 0
-  bullet: {fileID: 4405079467624181914, guid: 2e46823076736f64c96e897d73247546, type: 3}
+  weaponStats: {fileID: 11400000, guid: 8bbfd28820491f0499a143c1c4446be4, type: 2}

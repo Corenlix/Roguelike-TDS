@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace EnemyAI
 {
-    public class DistanceCondition : StateCondition
+    public class DistanceNearCondition : StateCondition
     {
         [SerializeField] private float maxDistance;
         public override bool ConditionMet()

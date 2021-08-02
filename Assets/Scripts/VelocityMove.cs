@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EntityMove : MonoBehaviour
+public class VelocityMove : MonoBehaviour, IMoveVelocity
 {
     [SerializeField] private float movementSpeed;
     
-    private Vector2 _moveDirection;
+    private Vector2 _velocityDirection;
     
     [SerializeField] private Animator bodyAnimator;
     
@@ -21,12 +21,12 @@ public class EntityMove : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        _rigidbody.velocity = _moveDirection * movementSpeed;
+        _rigidbody.velocity = _velocityDirection * movementSpeed;
         bodyAnimator.SetBool(IsRunningAnimationId, _rigidbody.velocity.sqrMagnitude > 0);
     }
-
-    public void SetMoveDirection(Vector2 direction)
+    
+    public void SetVelocityDirection(Vector2 direction)
     {
-        _moveDirection = direction.normalized;
+        _velocityDirection = direction.normalized;
     }
 }

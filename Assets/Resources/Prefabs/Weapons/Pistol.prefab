@@ -45,12 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9925bf78fdc3141a05fa998a0a7368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 985723882338541333}
   shootPoint: {fileID: 985723881898572832}
-  reloadTime: 0.5
   weaponAnimator: {fileID: 985723882338541335}
-  ammoType: 0
-  bullet: {fileID: 4405079467624181914, guid: 2e46823076736f64c96e897d73247546, type: 3}
+  weaponStats: {fileID: 11400000, guid: 184a841ecf51cee4e96d52f4b536d8e6, type: 2}
 --- !u!1 &985723881898572833
 GameObject:
   m_ObjectHideFlags: 0

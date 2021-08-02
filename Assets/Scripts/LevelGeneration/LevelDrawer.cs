@@ -11,34 +11,36 @@ namespace LevelGeneration
         
         public void DrawLevel(CellType[,] level)
         {
-            level = InitLevel(level);
+            DrawLevelBackground(level.GetLength(0), level.GetLength(1));
             for (int i = 0; i < level.GetLength(0); i++)
             {
                 for (int j = 0; j < level.GetLength(0); j++)
                 {
                     var currentCell = level[i, j];
-                    GetTilemapFromCellType(currentCell).SetTile(new Vector3Int(i, j, 0), GetTileFromCellType(currentCell));
+                    var tile = GetTileFromCellType(currentCell);
+                    var palette = GetTilemapFromCellType(currentCell);
+                    palette.SetTile(new Vector3Int(i, j, 0), tile);
                 }    
             }
         }
 
-        private CellType[,] InitLevel(CellType[,] level)
+        private void DrawLevelBackground(int levelWidth, int levelHeight)
         {
             floorsTilemap.ClearAllTiles();
             wallsTilemap.ClearAllTiles();
-            for (int i = -offset; i < level.GetLength(0) + offset; i++)
+            for (int i = -offset; i < levelWidth + offset; i++)
             {
-                for (int j = -offset; j < level.GetLength(1) + offset; j++)
+                for (int j = -offset; j < levelHeight + offset; j++)
                 {
-                    if(i < 0 || i >= level.GetLength(0) || j < 0 || j >= level.GetLongLength(1))
+                    if(i < 0 || i >= levelWidth || j < 0 || j >= levelHeight)
                         GetTilemapFromCellType(CellType.Wall).SetTile(new Vector3Int(i, j, 0), GetTileFromCellType(CellType.Wall));
                     else
                         GetTilemapFromCellType(CellType.RoomFloor).SetTile(new Vector3Int(i, j, 0), GetTileFromCellType(CellType.CorridorFloor));
                 }
             }
-
-            return level;
         }
+        
+        
         private RuleTile GetTileFromCellType(CellType cellType)
         {
             return cellType switch

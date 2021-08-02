@@ -1,25 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 [Serializable]
 public class Weapon : MonoBehaviour
 {
-    public AmmoTypes AmmoType => ammoType;
-    public virtual bool ReadyToShot => DateTime.UtcNow.Subtract(_lastShootDate).TotalSeconds > reloadTime;
-    private DateTime _lastShootDate = DateTime.MinValue;
-    
+    public WeaponStats.AmmoTypes AmmoType => weaponStats.AmmoType;
+    public virtual bool ReadyToShot => DateTime.UtcNow.Subtract(_lastShootDate).TotalSeconds > weaponStats.ReloadTime;
+
+    [SerializeField] private SpriteRenderer weaponRenderer;
     [SerializeField] private Transform shootPoint;
-    [SerializeField] private float reloadTime;
     [SerializeField] private Animator weaponAnimator;
-    [SerializeField] private AmmoTypes ammoType;
-    [SerializeField] private Bullet bullet;
+    [SerializeField] private WeaponStats weaponStats;
 
     private static readonly int ShootAnimationId = Animator.StringToHash("Shoot");
+    private DateTime _lastShootDate = DateTime.MinValue;
     
     public bool TryShoot(Vector2 targetPosition)
     {
@@ -47,13 +43,9 @@ public class Weapon : MonoBehaviour
     }
     private void Shoot(Vector2 direction)
     {
-        var newBullet = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity);
-        newBullet.GetComponent<Bullet>().Init(direction);
+        Bullet newBullet = Instantiate(weaponStats.Bullet, shootPoint.transform.position, Quaternion.identity);
+        newBullet.Init(direction);
     }
     
-    [Serializable]
-    public enum AmmoTypes
-    {
-        Pistol = 0,
-    }
+    
 }

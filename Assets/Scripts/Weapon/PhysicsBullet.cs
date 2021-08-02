@@ -13,8 +13,8 @@ public class PhysicsBullet : Bullet
         Vector2 shootDirection = shootPoint - (Vector2)transform.position;
         
         transform.rotation = RotateHelper.GetAngleFromDirection(shootDirection);
-        var rgb = GetComponent<Rigidbody2D>();
-        rgb.AddForce(shootDirection.normalized * moveSpeed, ForceMode2D.Impulse);
+        var rb = GetComponent<Rigidbody2D>();
+        rb.AddForce(shootDirection.normalized * moveSpeed, ForceMode2D.Impulse);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
