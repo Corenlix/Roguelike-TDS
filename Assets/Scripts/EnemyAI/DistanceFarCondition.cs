@@ -8,6 +8,6 @@ public class DistanceFarCondition : StateCondition
     [SerializeField] private float minDistance;
     public override bool ConditionMet()
     {
-        return Vector2.Distance(transform.position, PlayerControls.Instance.transform.position) > minDistance;
+        return Vector2.Distance(transform.position, EnemiesTarget.Instance.GetTargetPosition()) > minDistance;
     }
 }

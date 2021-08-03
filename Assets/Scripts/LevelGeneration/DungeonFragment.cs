@@ -95,13 +95,12 @@ namespace LevelGeneration
         }
         private void CreateRoom() 
         {
-            var width = GetRoomSize(_rect.width);
-            var height = GetRoomSize(_rect.height);
+            var roomSize = GetRoomSize(_rect.size);
 
-            var x = _rect.x + Random.Range(0, _rect.width - width);
-            var y = _rect.y + Random.Range(0, _rect.height - height);
+            var x = _rect.x + Random.Range(0, _rect.width - roomSize.x);
+            var y = _rect.y + Random.Range(0, _rect.height - roomSize.y);
 
-            _rect = new RectInt(x, y, width, height);
+            _rect = new RectInt(x, y, roomSize.x, roomSize.y);
 
             _isRoom = true;
         }
@@ -165,20 +164,26 @@ namespace LevelGeneration
 
             var verticalRect = new RectInt();
             verticalRect.SetMinMax(new Vector2Int(firstPoint.x, Mathf.Min(firstPoint.y, secondPoint.y)),
-                new Vector2Int(firstPoint.x + CorridorsThickness - 1, Mathf.Max(firstPoint.y, secondPoint.y)));
+                new Vector2Int(firstPoint.x + CorridorsThickness - 1, Mathf.Max(firstPoint.y + 1, secondPoint.y + 1)));
 
             return new Corridor( new List<RectInt> { horizontalRect, verticalRect } );
         }
 
-        private static RectInt[] SplitRect(RectInt rect) 
+        private static RectInt[] SplitRect(RectInt rect)
         {
+            var relativeWidth = (float)rect.width / rect.height;
+            if (relativeWidth > 2f)
+                return HorizontalSplitRect(rect); 
+            if (relativeWidth < 0.5f)
+                return VerticalSplitRect(rect);
+                    
             var isHorizontalSplit = Random.Range(1, 100) < 50;
             return isHorizontalSplit ? HorizontalSplitRect(rect) : VerticalSplitRect(rect);
         }
         private static RectInt[] HorizontalSplitRect(RectInt rect) 
         {
             RectInt[] newRects = new RectInt[2];
-            int firstRectWidth = DivideSize(rect.width);
+            int firstRectWidth = GetSplitSize(rect.width);
 
             newRects[0] = new RectInt(rect.x, rect.y, firstRectWidth, rect.height);
             firstRectWidth += 1;
@@ -189,7 +194,7 @@ namespace LevelGeneration
         private static RectInt[] VerticalSplitRect(RectInt rect)
         {
             var newRects = new RectInt[2];
-            var firstRectHeight = DivideSize(rect.height);
+            var firstRectHeight = GetSplitSize(rect.height);
 
             newRects[0] = new RectInt(rect.x, rect.y, rect.width, firstRectHeight);
             firstRectHeight += 1;
@@ -198,15 +203,14 @@ namespace LevelGeneration
             return newRects;
         }
 
-        private static int DivideSize(int size) 
+        private static int GetSplitSize(int size) 
         {
-            var divideRate = Random.Range(100, (int)MaxSizeDivide*100)/100;
-            return size / (divideRate + 1);
+            return (int)Random.Range(size * 0.3f, size * 0.7f);
         }
-        private static int GetRoomSize(int size) 
+        private static Vector2Int GetRoomSize(Vector2Int size) 
         {
             var roomSizeModifier = Random.Range(MinRoomSizePercent, MaxRoomSizePercent) / 100f;
-            return (int)(roomSizeModifier * size);
+            return new Vector2Int((int)(size.x * roomSizeModifier), (int)(size.y * roomSizeModifier));
         }
     }
 }

@@ -5,5 +5,6 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    public abstract void Init(Vector2 shootPoint);
+    protected const int IgnoreBulletsLayer = 3;
+    public abstract void Init(Vector2 shootPoint, int damage, Health.HealthOwnerCategory bulletOwnerCategory);
 }

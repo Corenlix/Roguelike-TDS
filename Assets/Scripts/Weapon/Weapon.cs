@@ -6,16 +6,26 @@ using UnityEngine;
 [Serializable]
 public class Weapon : MonoBehaviour
 {
-    public WeaponStats.AmmoTypes AmmoType => weaponStats.AmmoType;
-    public virtual bool ReadyToShot => DateTime.UtcNow.Subtract(_lastShootDate).TotalSeconds > weaponStats.ReloadTime;
+    public virtual bool ReadyToShot => _reloadTimeRemain <= 0;
 
-    [SerializeField] private SpriteRenderer weaponRenderer;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Animator weaponAnimator;
-    [SerializeField] private WeaponStats weaponStats;
-
+    
+    [SerializeField] private AmmoTypes ammoType;
+    public AmmoTypes AmmoType => ammoType;
+    [SerializeField] private float reloadTime;
+    [SerializeField] private Bullet bullet;
+    [SerializeField] private int damage;
+    
+    [Serializable]
+    public enum AmmoTypes
+    {
+        Pistol = 0,
+    }
     private static readonly int ShootAnimationId = Animator.StringToHash("Shoot");
     private DateTime _lastShootDate = DateTime.MinValue;
+    private Health.HealthOwnerCategory _bulletOwnerCategory = Health.HealthOwnerCategory.Enemy;
+    private float _reloadTimeRemain;
     
     public bool TryShoot(Vector2 targetPosition)
     {
@@ -43,9 +53,20 @@ public class Weapon : MonoBehaviour
     }
     private void Shoot(Vector2 direction)
     {
-        Bullet newBullet = Instantiate(weaponStats.Bullet, shootPoint.transform.position, Quaternion.identity);
-        newBullet.Init(direction);
+        Bullet newBullet = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity);
+        newBullet.Init(direction, damage, _bulletOwnerCategory);
+        _reloadTimeRemain = reloadTime;
     }
-    
-    
+
+    private void Awake()
+    {
+        var ownerHealth = GetComponentInParent<Health>();
+        if (ownerHealth)
+            _bulletOwnerCategory = ownerHealth.OwnerCategory;
+    }
+
+    private void Update()
+    {
+        _reloadTimeRemain -= Time.deltaTime;
+    }
 }

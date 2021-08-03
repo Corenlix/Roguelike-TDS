@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,6 +39,10 @@ public class MoveToPosition : MonoBehaviour, IMovePosition
 
         _moveVelocity.SetVelocityDirection(direction);
     }
-    
-    
+
+    public void Reset()
+    {
+        _movePoint = null;
+        _moveVelocity.SetVelocityDirection(Vector2.zero);
+    }
 }

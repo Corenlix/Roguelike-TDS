@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace EnemyAI
 {
@@ -6,23 +8,34 @@ namespace EnemyAI
     public class RandomWalkState : EnemyState
     {
         private IMovePosition movePosition;
-        [SerializeField] private Rect walkingArea; 
+        [SerializeField] private int walkDistance;
+        private float time = 2;
         
         public override void Enter()
         {
             movePosition = GetComponent<IMovePosition>();
-            movePosition.MovingEnded += MoveToNewPoint;
             MoveToNewPoint();
+        }
+
+        private void Update()
+        {
+            time -= Time.deltaTime;
+            if (time > 0)
+                return;
+
+            MoveToNewPoint();
+            time = 2;
         }
 
         private void MoveToNewPoint()
         {
-            var newPoint = new Vector2(Random.Range(walkingArea.x, walkingArea.xMax), Random.Range(walkingArea.y, walkingArea.yMax));
+            Vector2 newPoint = transform.position; 
+            newPoint += new Vector2(Random.Range(-walkDistance, walkDistance), Random.Range(-walkDistance, walkDistance));
             movePosition.SetMovePoint(newPoint);
         }
         public override void Exit()
         {
-            movePosition.MovingEnded -= MoveToNewPoint;
+            movePosition.Reset();
         }
     }
 }

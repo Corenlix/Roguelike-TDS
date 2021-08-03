@@ -13,9 +13,11 @@ namespace LevelGeneration
             _player = playerTransform;
         }
 
-        public void MovePlayer()
+        public RectInt MovePlayer()
         {
-            _player.transform.position = _level.Rooms[Random.Range(0, _level.Rooms.Count - 1)].center;
+            var playerRoom = _level.Rooms[Random.Range(0, _level.Rooms.Count - 1)];
+            _player.transform.position = playerRoom.center;
+            return playerRoom;
         }
     }
 }

@@ -18,29 +18,45 @@ public class PathfindingMovement : MonoBehaviour, IMovePosition
 
     private void Update()
     {
-        if (_pathPoints?.Count > 0)
-        {
-            var direction = _pathPoints[0] - (Vector2)transform.position;
-            if (direction.sqrMagnitude < 0.1f)
-            {
-                _pathPoints.RemoveAt(0);
-                if (_pathPoints.Count > 0)
-                    direction = _pathPoints[0] - (Vector2) transform.position;
-                else
-                {
-                    direction = Vector2.zero;
-                    MovingEnded?.Invoke();
-                }
-            }
+        UpdateVelocity();
+    }
 
-            _moveVelocity.SetVelocityDirection(direction);
+    public Vector2 curPoint;
+    public void SetMovePoint(Vector2 position)
+    {
+        curPoint = position;
+        _moveVelocity ??= GetComponent<IMoveVelocity>();
+        _pathPoints = LevelHandler.Instance.Pathfinder.FindPath(transform.position, position);
+        if(_pathPoints == null)
+            Reset();
+        else _moveVelocity.SetVelocityDirection(GetMoveDirection());
+    }
+
+    public void Reset()
+    {
+        MovingEnded?.Invoke();
+        _moveVelocity.SetVelocityDirection(Vector2.zero);
+        _pathPoints = null;
+    }
+    private void UpdateVelocity()
+    {
+        if (_pathPoints == null || _pathPoints.Count == 0) return;
+        var direction = GetMoveDirection();
+        if (direction.sqrMagnitude < 0.1f)
+        {
+            _pathPoints.RemoveAt(0);
+            if (_pathPoints.Count > 0)
+            {
+                direction = GetMoveDirection();
+                _moveVelocity.SetVelocityDirection(direction);
+            }
+            else
+                Reset();
         }
     }
 
-    public void SetMovePoint(Vector2 position)
+    private Vector2 GetMoveDirection()
     {
-        _pathPoints = LevelHandler.Instance.Pathfinder.FindPath(transform.position, position);
-        if(_pathPoints == null)
-            MovingEnded?.Invoke();
+        return _pathPoints[0] - (Vector2) transform.position;
     }
 }

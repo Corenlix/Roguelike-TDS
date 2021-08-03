@@ -8,7 +8,6 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(VelocityMove))]
 public class PlayerControls : MonoBehaviour
 {
-    public static PlayerControls Instance;
     private WeaponsControl weaponsControl;
     private Camera _mainCamera;
     
@@ -27,13 +26,6 @@ public class PlayerControls : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        
         weaponsControl = GetComponent<WeaponsControl>();
         _mainCamera = Camera.main;
     }

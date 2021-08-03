@@ -22,13 +22,16 @@ namespace Pathfinding
         }
         public List<Vector2Int> FindPath(Vector2 pointA, Vector2 pointB)
         {
+            if (pointA.x < 0 || pointA.x >= nodes.GetLength(0) || pointB.x < 0 || pointB.y >= nodes.GetLength(1))
+                return null;
+            
             foreach (var node in nodes)
             {
                 node.ResetNode();
             }
         
             openedNodes = new List<Node>();
-            var firstNode = OpenNode(new Vector2Int(Mathf.RoundToInt(pointB.x), Mathf.RoundToInt(pointB.y)));
+            var firstNode = OpenNode(new Vector2Int((int)(pointB.x), (int)(pointB.y)));
             firstNode.G = 0;
         
             endPoint = new Vector2Int(Mathf.RoundToInt(pointA.x), Mathf.RoundToInt(pointA.y));
@@ -41,6 +44,8 @@ namespace Pathfinding
                 {
                     var path = selectedNode.GetPathToRootNode();
                     path.RemoveAt(0);
+                    if (path.Count == 0)
+                        return null;
                     DrawPath(path);
                     return path;
                 }

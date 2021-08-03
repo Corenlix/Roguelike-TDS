@@ -7,4 +7,5 @@ public interface IMovePosition
 {
     public event UnityAction MovingEnded;
     public void SetMovePoint(Vector2 position);
+    public void Reset();
 }

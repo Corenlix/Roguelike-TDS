@@ -7,7 +7,7 @@ namespace EnemyAI
         [SerializeField] private float maxDistance;
         public override bool ConditionMet()
         {
-            return Vector2.Distance(transform.position, PlayerControls.Instance.transform.position) < maxDistance;
+            return Vector2.Distance(transform.position, EnemiesTarget.Instance.GetTargetPosition()) < maxDistance;
         }
     }
 }
