@@ -2,20 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
+    public UnityEvent onHealthChanged;
+    public UnityEvent onDamaged;
+    public UnityEvent onDied;
+        
     [SerializeField] private int maxHealth;
-    [SerializeField] private HealthOwnerCategory ownerCategory;
-    public HealthOwnerCategory OwnerCategory => ownerCategory;
     private int _health;
 
-    public bool Damage(int damage, HealthOwnerCategory bulletOwnerCategory)
+    public bool Damage(int damage)
     {
-        if (bulletOwnerCategory == ownerCategory)
-            return false;
-        
         _health -= damage;
+        onDamaged?.Invoke();
+        onHealthChanged?.Invoke();
         if(_health <= 0)
             OnDied();
 
@@ -27,17 +29,12 @@ public class Health : MonoBehaviour
     }
     private void OnDied()
     {
+        onDied?.Invoke();
         Destroy(gameObject);
     }
 
     private void Awake()
     {
         ResetHealth();
-    }
-
-    public enum HealthOwnerCategory
-    {
-        Enemy = 0,
-        Player = 1,
     }
 }

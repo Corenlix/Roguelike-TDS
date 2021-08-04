@@ -5,6 +5,16 @@ using UnityEngine;
 
 public abstract class Bullet : MonoBehaviour
 {
-    protected const int IgnoreBulletsLayer = 3;
-    public abstract void Init(Vector2 shootPoint, int damage, Health.HealthOwnerCategory bulletOwnerCategory);
+    [SerializeField] private ParticleSystem destructionParticle;
+    protected bool SpawnParticles = true;
+    
+    public abstract void Init(Vector2 shootPoint, int damage, LayerMask interactiveLayers);
+
+    private void OnDestroy()
+    {
+        if(!destructionParticle || !SpawnParticles)
+            return;
+
+        Instantiate(destructionParticle, transform.position, Quaternion.identity);
+    }
 }

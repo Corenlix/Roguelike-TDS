@@ -1,5 +1,6 @@
 using System;
 using EnemyAI;
+using Helpers;
 using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,22 +8,18 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(IMovePosition))]
 public class ChaseTargetState : EnemyState
 {
-    [SerializeField] private float minShootPeriod;
-    [SerializeField] private float maxShootPeriod;
-
     [SerializeField] private float minWalkPeriod;
     [SerializeField] private float maxWalkPeriod;
     
     private IMovePosition _movePosition;
-    private IAttack _attack;
+    private EnemyAbility ability;
     
-    private float _timeRemainToShoot;
     private float _timeRemainToWalk;
 
     private void Awake()
     {
         _movePosition = GetComponent<IMovePosition>();
-        _attack = GetComponent<IAttack>();
+        ability = GetComponentInChildren<EnemyAbility>();
     }
 
     public override void Enter()
@@ -48,12 +45,14 @@ public class ChaseTargetState : EnemyState
 
     private void TryAttack()
     {
-        _timeRemainToShoot -= Time.deltaTime;
-        if (_timeRemainToShoot > 0)
-            return;
-        
-        _attack.Attack(EnemiesTarget.Instance.GetTargetPosition());
-        _timeRemainToShoot = Random.Range(minShootPeriod, maxShootPeriod);
+        var targetPos = EnemiesTarget.Instance.GetTargetPosition();
+        RotateHelper.FlipBodyToPosition(transform, targetPos);
+
+        if (ability.IsReadyToShoot())
+        {
+            if(Physics2D.Raycast(transform.position, targetPos, ability.LayersToDamage))
+                ability.Shoot(targetPos);
+        }
     }
     private Vector2 GetNewPoint()
     {

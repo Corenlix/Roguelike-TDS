@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 4147e4517e2c22f4db59d09b85db4b3c
+guid: de291af05be4efb43afaf99fe3714d7f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2323917800338813707
-    second: turret_0
+      213: 1121738191398924402
+    second: TearDeath_0
   - first:
-      213: 6219008580301899996
-    second: turret_1
+      213: -2024402390353140422
+    second: TearDeath_1
+  - first:
+      213: -3300977604350235126
+    second: TearDeath_2
+  - first:
+      213: 3414954612778351478
+    second: TearDeath_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -52,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 23
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,43 +103,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: turret_0
+      name: TearDeath_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 28
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b03f6604de6304020800000000000000
-      internalID: 2323917800338813707
+      spriteID: 270725d11f6319f00800000000000000
+      internalID: 1121738191398924402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: turret_1
+      name: TearDeath_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 28
         y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 28
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd84004aa5b5e4650800000000000000
-      internalID: 6219008580301899996
+      spriteID: a35ac8070c0e7e3e0800000000000000
+      internalID: -2024402390353140422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TearDeath_2
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 28
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0e2f21bb529032d0800000000000000
+      internalID: -3300977604350235126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TearDeath_3
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 28
+        height: 22
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67b3cba802b546f20800000000000000
+      internalID: 3414954612778351478
       vertices: []
       indices: 
       edges: []

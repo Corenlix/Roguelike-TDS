@@ -1,39 +1,48 @@
 fileFormatVersion: 2
-guid: e48961e18dc9a014a8bd756abb31d4f5
+guid: e83486c6e218ab04da2929c6dfd42b1d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6506089311808655267
-    second: 64x128Tiles_0
+      213: 297761703447499198
+    second: enemy_0
   - first:
-      213: 1700716274860322186
-    second: 64x128Tiles_1
+      213: 3680619090928529440
+    second: enemy_1
   - first:
-      213: -5381704481336141981
-    second: 64x128Tiles_2
+      213: -6810697999950630716
+    second: enemy_2
   - first:
-      213: -5363159737109091361
-    second: 64x128Tiles_3
+      213: 1779747271024799556
+    second: enemy_3
   - first:
-      213: 6014931047902846116
-    second: 64x128Tiles_4
+      213: 8411463563914695271
+    second: enemy_4
   - first:
-      213: 2520419691286454135
-    second: 64x128Tiles_5
+      213: 3678316895343943306
+    second: enemy_5
   - first:
-      213: -3935004787396007676
-    second: 64x128Tiles_6
+      213: 2439735430664305865
+    second: Tear_0
   - first:
-      213: -7031487364473440633
-    second: 64x128Tiles_7
+      213: -6997803843817491846
+    second: Tear_1
   - first:
-      213: 1044185556392030892
-    second: 64x128Tiles_8
+      213: 8090867800414941653
+    second: Tear_2
+  - first:
+      213: 4829975475992545346
+    second: Tear_3
+  - first:
+      213: 3872160442466301657
+    second: Tear_4
+  - first:
+      213: -4493202133946977624
+    second: Tear_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -59,7 +68,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -73,7 +82,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 23
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -118,13 +127,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 64x128Tiles_0
+      name: Tear_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 128
+        width: 28
+        height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -132,20 +141,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3af025322c54a4a50800000000000000
-      internalID: 6506089311808655267
+      spriteID: 9cc3eaaa27eabd120800000000000000
+      internalID: 2439735430664305865
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 64x128Tiles_1
+      name: Tear_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 28
         y: 0
-        width: 64
-        height: 128
+        width: 28
+        height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,20 +162,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8d66c2f0782a9710800000000000000
-      internalID: 1700716274860322186
+      spriteID: a723561ea7ec2ee90800000000000000
+      internalID: -6997803843817491846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 64x128Tiles_2
+      name: Tear_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 56
         y: 0
-        width: 64
-        height: 128
+        width: 28
+        height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -174,20 +183,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 367d4d7a9485055b0800000000000000
-      internalID: -5381704481336141981
+      spriteID: 5d1f060b569884070800000000000000
+      internalID: 8090867800414941653
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 64x128Tiles_3
+      name: Tear_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 84
         y: 0
-        width: 64
-        height: 128
+        width: 28
+        height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -195,20 +204,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fdb6fe362aa3295b0800000000000000
-      internalID: -5363159737109091361
+      spriteID: 2484268ea15870340800000000000000
+      internalID: 4829975475992545346
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 64x128Tiles_4
+      name: Tear_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 112
         y: 0
-        width: 64
-        height: 128
+        width: 28
+        height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,20 +225,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ac97ba6be3597350800000000000000
-      internalID: 6014931047902846116
+      spriteID: 9d6f586286dacb530800000000000000
+      internalID: 3872160442466301657
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 64x128Tiles_5
+      name: Tear_5
       rect:
         serializedVersion: 2
-        x: 320
+        x: 140
         y: 0
-        width: 64
-        height: 128
+        width: 28
+        height: 26
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,71 +246,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 77f57000b545af220800000000000000
-      internalID: 2520419691286454135
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 64x128Tiles_6
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 64
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 409acc19efd0469c0800000000000000
-      internalID: -3935004787396007676
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 64x128Tiles_7
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 0
-        width: 64
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 786b9e51f732b6e90800000000000000
-      internalID: -7031487364473440633
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 64x128Tiles_8
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 64
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca237503b31bd7e00800000000000000
-      internalID: 1044185556392030892
+      spriteID: 8a230161770f4a1c0800000000000000
+      internalID: -4493202133946977624
       vertices: []
       indices: 
       edges: []

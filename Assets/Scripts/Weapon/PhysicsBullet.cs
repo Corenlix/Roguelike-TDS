@@ -8,10 +8,10 @@ using UnityEngine;
 public class PhysicsBullet : Bullet
 {
     [SerializeField] float moveSpeed;
-    private Health.HealthOwnerCategory _bulletOwnerCategory;
+    private LayerMask _interactiveLayers;
     private int _damage;
     
-    public override void Init(Vector2 shootPoint, int damage, Health.HealthOwnerCategory bulletOwnerCategory)
+    public override void Init(Vector2 shootPoint, int damage, LayerMask interactiveLayers)
     {
         Vector2 shootDirection = shootPoint - (Vector2)transform.position;
         
@@ -19,16 +19,17 @@ public class PhysicsBullet : Bullet
         var rb = GetComponent<Rigidbody2D>();
         rb.AddForce(shootDirection.normalized * moveSpeed, ForceMode2D.Impulse);
         _damage = damage;
-        _bulletOwnerCategory = bulletOwnerCategory;
+        _interactiveLayers = interactiveLayers;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.layer != IgnoreBulletsLayer)
+        if ((_interactiveLayers.value & (1 << other.gameObject.layer)) != 0)
         {
             var health = other.GetComponent<Health>();
-            if (!health || health.Damage(_damage, _bulletOwnerCategory))
+            if (!health || health.Damage(_damage))
             {
+                SpawnParticles = !health;
                 Destroy(gameObject);
             }
         }

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(AmmoController))]
-public class WeaponsControl : MonoBehaviour, IAttack
+public class WeaponsControl : MonoBehaviour
 {
     public UnityEvent<Weapon> onWeaponChanged;
     

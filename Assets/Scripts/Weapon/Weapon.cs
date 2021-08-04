@@ -16,6 +16,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float reloadTime;
     [SerializeField] private Bullet bullet;
     [SerializeField] private int damage;
+    [SerializeField] private LayerMask layersToDamage; 
     
     [Serializable]
     public enum AmmoTypes
@@ -24,7 +25,6 @@ public class Weapon : MonoBehaviour
     }
     private static readonly int ShootAnimationId = Animator.StringToHash("Shoot");
     private DateTime _lastShootDate = DateTime.MinValue;
-    private Health.HealthOwnerCategory _bulletOwnerCategory = Health.HealthOwnerCategory.Enemy;
     private float _reloadTimeRemain;
     
     public bool TryShoot(Vector2 targetPosition)
@@ -54,17 +54,10 @@ public class Weapon : MonoBehaviour
     private void Shoot(Vector2 direction)
     {
         Bullet newBullet = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity);
-        newBullet.Init(direction, damage, _bulletOwnerCategory);
+        newBullet.Init(direction, damage, layersToDamage);
         _reloadTimeRemain = reloadTime;
     }
-
-    private void Awake()
-    {
-        var ownerHealth = GetComponentInParent<Health>();
-        if (ownerHealth)
-            _bulletOwnerCategory = ownerHealth.OwnerCategory;
-    }
-
+    
     private void Update()
     {
         _reloadTimeRemain -= Time.deltaTime;

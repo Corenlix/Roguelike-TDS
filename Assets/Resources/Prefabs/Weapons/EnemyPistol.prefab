@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4981110701230317072}
-  - component: {fileID: 4981110701230317079}
-  m_Layer: 0
+  - component: {fileID: 3568419073506936744}
+  m_Layer: 6
   m_Name: EnemyPistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4981110701230317079
+--- !u!114 &3568419073506936744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,15 +42,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4981110701230317078}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d9925bf78fdc3141a05fa998a0a7368, type: 3}
+  m_Script: {fileID: 11500000, guid: 0651b7a4675db824fa2b5b2c54d06920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootPoint: {fileID: 4981110701935580635}
-  weaponAnimator: {fileID: 4981110701696415468}
-  ammoType: 0
-  reloadTime: 0.9
+  reloadTime: 2
+  damage: 3
   bullet: {fileID: 4241554548864632696, guid: 8a0009ff93bf980409b860ae0f48143a, type: 3}
-  damage: 9
+  shootPoint: {fileID: 4981110701935580635}
+  layersToDamage:
+    serializedVersion: 2
+    m_Bits: 183
 --- !u!1 &4981110701696415458
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +63,7 @@ GameObject:
   - component: {fileID: 4981110701696415459}
   - component: {fileID: 4981110701696415470}
   - component: {fileID: 4981110701696415468}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PistolBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4981110701935580635}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
