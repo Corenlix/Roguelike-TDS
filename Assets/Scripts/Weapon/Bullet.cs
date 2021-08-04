@@ -7,9 +7,15 @@ public abstract class Bullet : MonoBehaviour
 {
     [SerializeField] private ParticleSystem destructionParticle;
     protected bool SpawnParticles = true;
-    
-    public abstract void Init(Vector2 shootPoint, int damage, LayerMask interactiveLayers);
+    protected AttackParams AttackParams;
 
+    public void Init(Vector2 shootPoint, AttackParams attackParams)
+    {
+        AttackParams = attackParams;
+        Shoot(shootPoint);
+    }
+
+    protected abstract void Shoot(Vector2 shootPoint);
     private void OnDestroy()
     {
         if(!destructionParticle || !SpawnParticles)

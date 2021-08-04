@@ -15,8 +15,7 @@ public class Weapon : MonoBehaviour
     public AmmoTypes AmmoType => ammoType;
     [SerializeField] private float reloadTime;
     [SerializeField] private Bullet bullet;
-    [SerializeField] private int damage;
-    [SerializeField] private LayerMask layersToDamage; 
+    [SerializeField] private AttackParams attackParams;
     
     [Serializable]
     public enum AmmoTypes
@@ -54,7 +53,7 @@ public class Weapon : MonoBehaviour
     private void Shoot(Vector2 direction)
     {
         Bullet newBullet = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity);
-        newBullet.Init(direction, damage, layersToDamage);
+        newBullet.Init(direction, attackParams);
         _reloadTimeRemain = reloadTime;
     }
     

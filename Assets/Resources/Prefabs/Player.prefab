@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 3813104054761708936}
   - component: {fileID: 7774262896308236539}
   - component: {fileID: 538936991}
+  - component: {fileID: 5695461790928077215}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -259,6 +260,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02e8f63b9e66e04586164f790fa85a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onHealthChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
+  onDied:
+    m_PersistentCalls:
+      m_Calls: []
   maxHealth: 100
 --- !u!114 &7774262896308236539
 MonoBehaviour:
@@ -298,6 +308,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0641594, y: 1.4847546}
   m_EdgeRadius: 0
+--- !u!114 &5695461790928077215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3777395867539079775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9779351e2cf50ff418d65cd14a5bd035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  knockbackResistance: 0
 --- !u!1001 &791905565686772939
 PrefabInstance:
   m_ObjectHideFlags: 0

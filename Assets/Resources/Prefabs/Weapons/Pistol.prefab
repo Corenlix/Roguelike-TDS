@@ -50,7 +50,13 @@ MonoBehaviour:
   ammoType: 0
   reloadTime: 0.9
   bullet: {fileID: -5849546875255470129, guid: 2e46823076736f64c96e897d73247546, type: 3}
-  damage: 9
+  attackParams:
+    damage: 5
+    knockbackTime: 0.08
+    knockbackForce: 10
+    interactiveLayers:
+      serializedVersion: 2
+      m_Bits: 119
 --- !u!1 &985723881898572833
 GameObject:
   m_ObjectHideFlags: 0

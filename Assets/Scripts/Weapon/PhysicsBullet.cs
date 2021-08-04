@@ -8,28 +8,29 @@ using UnityEngine;
 public class PhysicsBullet : Bullet
 {
     [SerializeField] float moveSpeed;
-    private LayerMask _interactiveLayers;
-    private int _damage;
-    
-    public override void Init(Vector2 shootPoint, int damage, LayerMask interactiveLayers)
+    protected override void Shoot(Vector2 shootPoint)
     {
         Vector2 shootDirection = shootPoint - (Vector2)transform.position;
-        
         transform.rotation = RotateHelper.GetAngleFromDirection(shootDirection);
         var rb = GetComponent<Rigidbody2D>();
         rb.AddForce(shootDirection.normalized * moveSpeed, ForceMode2D.Impulse);
-        _damage = damage;
-        _interactiveLayers = interactiveLayers;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if ((_interactiveLayers.value & (1 << other.gameObject.layer)) != 0)
+        if ((AttackParams.InteractiveLayers.value & (1 << other.gameObject.layer)) != 0)
         {
             var health = other.GetComponent<Health>();
-            if (!health || health.Damage(_damage))
+            if (!health || health.Damage(AttackParams.Damage))
             {
                 SpawnParticles = !health;
+                var knockback = other.GetComponent<Knockback>();
+                if (knockback)
+                {
+                    var direction = transform.right;
+                    knockback.AddKnockback(direction * AttackParams.KnockbackForce, AttackParams.KnockbackTime);
+                }
+
                 Destroy(gameObject);
             }
         }

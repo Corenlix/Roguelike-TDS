@@ -3,17 +3,17 @@ using LevelGeneration;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(IMoveVelocity))]
+[RequireComponent(typeof(VelocityMove))]
 public class PathfindingMovement : MonoBehaviour, IMovePosition
 {
-    private IMoveVelocity _moveVelocity;
+    private VelocityMove _moveVelocity;
     private List<Vector2Int> _pathPoints;
 
     public event UnityAction MovingEnded;
 
     private void Awake()
     {
-        _moveVelocity = GetComponent<IMoveVelocity>();
+        _moveVelocity = GetComponent<VelocityMove>();
     }
 
     private void Update()
@@ -25,7 +25,8 @@ public class PathfindingMovement : MonoBehaviour, IMovePosition
     public void SetMovePoint(Vector2 position)
     {
         curPoint = position;
-        _moveVelocity ??= GetComponent<IMoveVelocity>();
+        if(!_moveVelocity)
+            _moveVelocity = GetComponent<VelocityMove>();
         _pathPoints = LevelHandler.Instance.Pathfinder.FindPath(transform.position, position);
         if(_pathPoints == null)
             Reset();

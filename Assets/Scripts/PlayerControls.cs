@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(WeaponsControl))]
 [RequireComponent(typeof(VelocityMove))]

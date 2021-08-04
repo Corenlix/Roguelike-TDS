@@ -6,7 +6,7 @@ using UnityEngine;
 public class OneShootAbility : EnemyAbility
 {
     [SerializeField] private float reloadTime;
-    [SerializeField] private int damage;
+    [SerializeField] private AttackParams attackParams;
     [SerializeField] private Bullet bullet;
     [SerializeField] private Transform shootPoint;
     
@@ -22,7 +22,7 @@ public class OneShootAbility : EnemyAbility
         if (!IsReadyToShoot())
             return;
         Bullet createdBullet = Instantiate(bullet, shootPoint.position, Quaternion.identity);
-        createdBullet.Init(targetPosition, damage, LayersToDamage);
+        createdBullet.Init(targetPosition, attackParams);
         remainReloadTime = reloadTime;
     }
 

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(IMoveVelocity))]
+[RequireComponent(typeof(VelocityMove))]
 public class MoveToPosition : MonoBehaviour, IMovePosition
 {
-    private IMoveVelocity _moveVelocity;
+    private VelocityMove _moveVelocity;
     private Vector2? _movePoint;
 
 
@@ -20,7 +20,7 @@ public class MoveToPosition : MonoBehaviour, IMovePosition
     
     private void Awake()
     {
-        _moveVelocity = GetComponent<IMoveVelocity>();
+        _moveVelocity = GetComponent<VelocityMove>();
         _movePoint = transform.position;
     }
 

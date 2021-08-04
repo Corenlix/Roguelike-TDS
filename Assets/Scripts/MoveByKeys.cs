@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(IMoveVelocity))]
+[RequireComponent(typeof(VelocityMove))]
 public class MoveByKeys : MonoBehaviour
 {
-    private IMoveVelocity _moveVelocity;
+    private VelocityMove _moveVelocity;
 
     private void Awake()
     {
-        _moveVelocity = GetComponent<IMoveVelocity>();
+        _moveVelocity = GetComponent<VelocityMove>();
     }
 
     private void Update()
