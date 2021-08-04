@@ -46,6 +46,20 @@ namespace LevelGeneration
                 LetWalkerToRoom(room);
             }
 
+            for (int i = 0; i < _levelCells.GetLength(0); i++)
+            {
+                for (int j = 0; j < _levelCells.GetLength(1); j++)
+                {
+                    if (_levelCells[i, j] == CellType.Wall && _levelCells[i, j + 1] != CellType.Wall &&
+                        _levelCells[i, j - 1] != CellType.Wall)
+                        _levelCells[i, j + 1] = CellType.Wall;
+                    
+                    if (_levelCells[i, j] == CellType.Wall && _levelCells[i+1, j + 1] != CellType.Wall &&
+                        _levelCells[i - 1, j] != CellType.Wall)
+                        _levelCells[i+1, j] = CellType.Wall;
+                }
+            }
+            
             return new Level(_levelCells, rooms, corridors);
         }
         private void InitDungeonFragmentVariables()
