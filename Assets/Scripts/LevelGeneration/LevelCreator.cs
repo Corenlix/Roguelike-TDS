@@ -46,9 +46,9 @@ namespace LevelGeneration
                 LetWalkerToRoom(room);
             }
 
-            for (int i = 0; i < _levelCells.GetLength(0); i++)
+            for (int i = 1; i < _levelCells.GetLength(0) - 2; i++)
             {
-                for (int j = 0; j < _levelCells.GetLength(1); j++)
+                for (int j = 1; j < _levelCells.GetLength(1) - 2; j++)
                 {
                     if (_levelCells[i, j] == CellType.Wall && _levelCells[i, j + 1] != CellType.Wall &&
                         _levelCells[i, j - 1] != CellType.Wall)
