@@ -16,7 +16,7 @@ public class SpawnObjectAfterTakingDamage : MonoBehaviour
         GetComponent<Health>().onDamaged?.RemoveListener(SpawnObject);
     }
 
-    private void SpawnObject()
+    private void SpawnObject(int damage)
     {
         Instantiate(newObject, transform.position, Quaternion.identity);
     }

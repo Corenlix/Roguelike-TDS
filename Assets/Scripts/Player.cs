@@ -15,6 +15,11 @@ public class Player : MonoBehaviour
     {
         _ammoController.AddAmmo(ammoType, ammoCount);
     }
+
+    public void AddWeapon(Weapon weapon)
+    {
+        _weaponsControl.AddWeapon(weapon);
+    }
     
     private void Update()
     {

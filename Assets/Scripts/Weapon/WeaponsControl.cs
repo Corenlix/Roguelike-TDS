@@ -8,8 +8,10 @@ public class WeaponsControl : MonoBehaviour
     public UnityEvent<Weapon> onWeaponChanged;
     public UnityEvent<Weapon, Vector2> onShoot;
     
-    [SerializeField] private List<Weapon> weapons;
+    [SerializeField] private int maxWeaponsCount;
     private int _selectedWeaponNumber;
+    
+    private List<Weapon> weapons = new List<Weapon>();
     private Weapon SelectedWeapon => weapons[_selectedWeaponNumber];
     private AmmoController playerAmmoController;
 
@@ -64,5 +66,16 @@ public class WeaponsControl : MonoBehaviour
         nextWeapon.gameObject.SetActive(true);
 
         onWeaponChanged?.Invoke(nextWeapon);
+    }
+
+    public void AddWeapon(Weapon weapon)
+    {
+        if (weapons.Count < maxWeaponsCount)
+        {
+            var newWeapon = Instantiate(weapon, transform.position, Quaternion.identity, transform);
+            newWeapon.transform.position = transform.position;
+            weapons.Add(newWeapon);
+            SwapWeapon();
+        }
     }
 }

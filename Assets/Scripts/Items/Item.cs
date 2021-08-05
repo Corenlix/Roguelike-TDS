@@ -6,6 +6,7 @@ using UnityEngine.Events;
 
 [Serializable]
 [RequireComponent(typeof(ItemAction))]
+[RequireComponent(typeof(Collider2D))]
 public class Item : MonoBehaviour
 {
     [SerializeField] private Sprite sprite;

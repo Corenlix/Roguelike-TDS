@@ -19,7 +19,7 @@ public class TakeDamageAnimation : MonoBehaviour
         GetComponent<Health>().onDamaged?.RemoveListener(PlayDamageAnimation);
     }
 
-    private void PlayDamageAnimation()
+    private void PlayDamageAnimation(int damage)
     {
         animator.SetTrigger(TakeDamage);
     }

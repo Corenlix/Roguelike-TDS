@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: TearDrop
   m_EditorClassIdentifier: 
   dropChances:
-  - obj: {fileID: 5394796592115200056, guid: 59270bfb8a6651a4c91a67a1d7e0dc16, type: 3}
+  - obj: {fileID: 4025044993073039594, guid: a431e1abeb829a949b8f774e29ccfcee, type: 3}
     chance: 20
+  - obj: {fileID: 5394796592115200056, guid: 59270bfb8a6651a4c91a67a1d7e0dc16, type: 3}
+    chance: 50

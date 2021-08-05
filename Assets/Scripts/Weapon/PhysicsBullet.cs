@@ -8,6 +8,7 @@ using UnityEngine;
 public class PhysicsBullet : Bullet
 {
     [SerializeField] float moveSpeed;
+    [SerializeField] private bool destroyAfterDealingDamage = true;
     protected override void Shoot(Vector2 shootPoint)
     {
         Vector2 shootDirection = shootPoint - (Vector2)transform.position;
@@ -21,17 +22,16 @@ public class PhysicsBullet : Bullet
         if ((AttackParams.InteractiveLayers.value & (1 << other.gameObject.layer)) != 0)
         {
             var health = other.GetComponent<Health>();
-            if (!health || other.isTrigger && health.Damage(AttackParams.Damage))
+            if (!health || other.isTrigger)
             {
-                SpawnParticles = !health;
-                var knockback = other.GetComponent<Knockback>();
-                if (knockback)
+                if (health && DealDamage(health))
                 {
-                    var direction = transform.right;
-                    knockback.AddKnockback(direction * AttackParams.KnockbackForce, AttackParams.KnockbackTime);
+                    SpawnParticles = false;
+                    if (destroyAfterDealingDamage)
+                        Destroy(gameObject);
                 }
-
-                Destroy(gameObject);
+                else
+                    Destroy(gameObject);
             }
         }
     }

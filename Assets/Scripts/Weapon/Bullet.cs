@@ -16,7 +16,23 @@ public abstract class Bullet : MonoBehaviour
     }
 
     protected abstract void Shoot(Vector2 shootPoint);
-    private void OnDestroy()
+
+    protected bool DealDamage(Health damageTaker)
+    {
+        if (damageTaker.DealDamage(AttackParams.Damage))
+        {
+            var knockback = damageTaker.GetComponent<Knockback>();
+            if (knockback)
+            {
+                var direction = transform.right;
+                knockback.AddKnockback(direction * AttackParams.KnockbackForce, AttackParams.KnockbackTime);
+            }
+            return true;
+        }
+        return false;
+    }
+
+private void OnDestroy()
     {
         if(!destructionParticle || !SpawnParticles)
             return;
