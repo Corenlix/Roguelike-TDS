@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destructionParticle: {fileID: 5611075244858510288, guid: 556895c5f7d3fc8438ba169b4434bab7, type: 3}
   moveSpeed: 5
+  destroyAfterDealingDamage: 1
 --- !u!58 &4253277928782355155
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -133,6 +134,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.18, y: 0}
   serializedVersion: 2
   m_Radius: 0.32
