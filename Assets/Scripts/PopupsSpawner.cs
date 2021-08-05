@@ -4,10 +4,11 @@ using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class DamagePopupSpawner : MonoBehaviour
+public class PopupsSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject damagePopupPrefab;
-    public static DamagePopupSpawner Instance;
+    [SerializeField] private GameObject itemPickedPrefab;
+    public static PopupsSpawner Instance;
 
     private void Awake()
     {
@@ -19,5 +20,12 @@ public class DamagePopupSpawner : MonoBehaviour
     {
         var spawnedPopup = Instantiate(damagePopupPrefab,  position, quaternion.identity, transform);
         spawnedPopup.GetComponentInChildren<TextMeshPro>().text = damage.ToString();
+    }
+
+    public void SpawnItemPickPopup(Vector2 position, string text)
+    {
+        var spawnedPopup = Instantiate(itemPickedPrefab,  position, quaternion.identity, transform);
+        spawnedPopup.GetComponentInChildren<TextMeshPro>().text = text;
+
     }
 }

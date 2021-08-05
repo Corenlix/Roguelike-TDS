@@ -245,7 +245,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 1.7770835
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -269,7 +269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.933334, y: 14.578333, z: -10}
+  m_LocalPosition: {x: 39.933334, y: 14.578333, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1160286737}
@@ -41680,7 +41680,7 @@ GameObject:
   - component: {fileID: 965121647}
   - component: {fileID: 965121646}
   m_Layer: 0
-  m_Name: DamagePopupSpawner
+  m_Name: PopupSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41699,6 +41699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePopupPrefab: {fileID: 4433431112386870123, guid: 878cb6335c34ca64a9b4b52d3d774119, type: 3}
+  itemPickedPrefab: {fileID: 6584838860522001596, guid: 5fef615eea6d1fc48a621315408b4aec, type: 3}
 --- !u!4 &965121647
 Transform:
   m_ObjectHideFlags: 0
@@ -99830,7 +99831,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772323234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.933334, y: 14.578333, z: -10}
+  m_LocalPosition: {x: 39.933334, y: 14.578333, z: -11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1713796817}

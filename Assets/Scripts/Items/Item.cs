@@ -12,6 +12,7 @@ public class Item : MonoBehaviour
     [SerializeField] private Sprite sprite;
     [SerializeField] private string itemName;
     [SerializeField] private string description;
+    [SerializeField] private string pickText;
 
     public void OnPick(Player player)
     {
@@ -19,6 +20,7 @@ public class Item : MonoBehaviour
         {
             itemAction.Activate(player);
         }
+        PopupsSpawner.Instance.SpawnItemPickPopup(transform.position, pickText);
         Destroy(gameObject);
     }
 }

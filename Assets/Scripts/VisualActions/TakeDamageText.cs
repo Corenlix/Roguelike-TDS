@@ -17,6 +17,6 @@ public class TakeDamageText : MonoBehaviour
     
         private void ShowPopup(int damage)
         {
-            DamagePopupSpawner.Instance.SpawnDamagePopup(transform.position, damage);
+            PopupsSpawner.Instance.SpawnDamagePopup(transform.position, damage);
         }
 }
