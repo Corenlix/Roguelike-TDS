@@ -27,6 +27,7 @@ public abstract class Bullet : MonoBehaviour
                 var direction = transform.right;
                 knockback.AddKnockback(direction * AttackParams.KnockbackForce, AttackParams.KnockbackTime);
             }
+            
             return true;
         }
         return false;

@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 4019960489989762945}
   - component: {fileID: 2442265500694557765}
   - component: {fileID: 8719302475919346209}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: ItemsPicker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
