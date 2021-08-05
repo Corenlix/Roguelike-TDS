@@ -1,3 +1,4 @@
+using System;
 using Helpers;
 using UnityEngine;
 
@@ -25,9 +26,11 @@ public class Player : MonoBehaviour
         var mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         RotateHelper.FlipBodyToPosition(transform, mouseWorldPosition);
         _weaponsControl.RotateSelectedWeaponToTarget(mouseWorldPosition);
-        
-        if(Input.GetMouseButton(0))
+
+        if (Input.GetMouseButton(0))
+        {
             _weaponsControl.Attack(mouseWorldPosition);
+        }
 
         if (Input.GetKeyDown(KeyCode.Q))
             _weaponsControl.SwapWeapon();
@@ -37,5 +40,20 @@ public class Player : MonoBehaviour
         _weaponsControl = GetComponent<WeaponsControl>();
         _mainCamera = Camera.main;
         _ammoController = GetComponent<AmmoController>();
+    }
+
+    private void OnEnable()
+    {
+        _weaponsControl.onShoot.AddListener(ShakeCamOnShoot);
+    }
+
+    private void OnDisable()
+    {
+        _weaponsControl.onShoot.RemoveListener(ShakeCamOnShoot);
+    }
+
+    private void ShakeCamOnShoot(Weapon weapon, Vector2 direction)
+    {
+        ShakeCamera.Instance.Shake(weapon.ShakeCamForce, weapon.ShakeCamTime, direction);
     }
 }

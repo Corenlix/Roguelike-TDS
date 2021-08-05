@@ -21,7 +21,7 @@ public class PhysicsBullet : Bullet
         if ((AttackParams.InteractiveLayers.value & (1 << other.gameObject.layer)) != 0)
         {
             var health = other.GetComponent<Health>();
-            if (!health || health.Damage(AttackParams.Damage))
+            if (!health || other.isTrigger && health.Damage(AttackParams.Damage))
             {
                 SpawnParticles = !health;
                 var knockback = other.GetComponent<Knockback>();

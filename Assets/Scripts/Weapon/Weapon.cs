@@ -10,12 +10,16 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private Transform shootPoint;
     [SerializeField] private Animator weaponAnimator;
-    
     [SerializeField] private AmmoTypes ammoType;
     public AmmoTypes AmmoType => ammoType;
+    public AttackParams AttackParams => attackParams;
     [SerializeField] private float reloadTime;
     [SerializeField] private Bullet bullet;
     [SerializeField] private AttackParams attackParams;
+    public float ShakeCamTime => shakeCamTime;
+    [SerializeField] private float shakeCamTime;
+    public float ShakeCamForce => shakeCamForce;
+    [SerializeField] private float shakeCamForce;
     
     [Serializable]
     public enum AmmoTypes

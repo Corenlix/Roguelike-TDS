@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class WeaponsControl : MonoBehaviour
 {
     public UnityEvent<Weapon> onWeaponChanged;
+    public UnityEvent<Weapon, Vector2> onShoot;
     
     [SerializeField] private List<Weapon> weapons;
     private int _selectedWeaponNumber;
@@ -18,14 +19,20 @@ public class WeaponsControl : MonoBehaviour
         SelectedWeapon.RotateWeapon(target);
     }
     
-    public void Attack(Vector2 targetPosition)
+    public bool Attack(Vector2 targetPosition)
     { 
         var selectedWeaponAmmoType = SelectedWeapon.AmmoType;
         if (playerAmmoController.GetAmmoCount(selectedWeaponAmmoType) > 0)
         {
             if (SelectedWeapon.TryShoot(targetPosition))
+            {
                 playerAmmoController.SubtractAmmo(selectedWeaponAmmoType);
+                onShoot?.Invoke(SelectedWeapon, targetPosition - (Vector2)transform.position);
+                return true;
+            }
         }
+
+        return false;
     }
 
     private void Awake()
