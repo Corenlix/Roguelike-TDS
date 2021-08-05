@@ -301,7 +301,7 @@ MonoBehaviour:
     m_Bits: 183
   reloadTime: 2
   attackParams:
-    damage: 5
+    damage: 2
     knockbackTime: 0.08
     knockbackForce: 5
     interactiveLayers:

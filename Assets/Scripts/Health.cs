@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
-    public UnityEvent onHealthChanged;
+    public UnityEvent<int, int> onHealthChanged;
     public UnityEvent<int> onDamaged;
     public UnityEvent onDied;
         
@@ -17,7 +17,7 @@ public class Health : MonoBehaviour
     {
         _health -= damage;
         onDamaged?.Invoke(damage);
-        onHealthChanged?.Invoke();
+        onHealthChanged?.Invoke(_health, maxHealth);
         PopupsSpawner.Instance.SpawnDamagePopup(transform.position, damage);
         if(_health <= 0)
             OnDied();
@@ -27,6 +27,7 @@ public class Health : MonoBehaviour
     private void ResetHealth()
     {
         _health = maxHealth;
+        onHealthChanged?.Invoke(_health, maxHealth);
     }
     private void OnDied()
     {
@@ -34,7 +35,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Awake()
+    private void Start()
     {
         ResetHealth();
     }
