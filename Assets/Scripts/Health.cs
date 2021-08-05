@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
         _health -= damage;
         onDamaged?.Invoke();
         onHealthChanged?.Invoke();
+        DamagePopupSpawner.Instance.SpawnDamagePopup(transform.position, damage);
         if(_health <= 0)
             OnDied();
 
