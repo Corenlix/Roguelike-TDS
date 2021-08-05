@@ -56,6 +56,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5849546875255470129, guid: 2e46823076736f64c96e897d73247546, type: 3}
     - target: {fileID: 985723880659253228, guid: bc7c99a7da5c04c46b185d8765f7af1e, type: 3}
+      propertyPath: ammoType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 985723880659253228, guid: bc7c99a7da5c04c46b185d8765f7af1e, type: 3}
       propertyPath: reloadTime
       value: 0.3
       objectReference: {fileID: 0}

@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: -3517618039258824431}
   - component: {fileID: 4523453329687660272}
   - component: {fileID: -1420074357371708726}
+  - component: {fileID: 6196361731647888701}
   m_Layer: 6
   m_Name: Tear
   m_TagString: Untagged
@@ -387,3 +388,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnChances: {fileID: 11400000, guid: 10b4a84c53d442e41ab8bf271c107fd9, type: 2}
+--- !u!114 &6196361731647888701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671572111481564369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc607b37ce513a140a374e8e877dd7d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
