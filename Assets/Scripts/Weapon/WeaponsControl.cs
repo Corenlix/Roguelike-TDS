@@ -63,8 +63,9 @@ public class WeaponsControl : MonoBehaviour
 
         _selectedWeaponNumber = (_selectedWeaponNumber + 1) % weapons.Count;
         var nextWeapon = weapons[_selectedWeaponNumber];
+        nextWeapon.transform.rotation = currentWeapon.transform.rotation;
         nextWeapon.gameObject.SetActive(true);
-
+        
         onWeaponChanged?.Invoke(nextWeapon);
     }
 
