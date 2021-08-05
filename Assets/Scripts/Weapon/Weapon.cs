@@ -25,6 +25,7 @@ public class Weapon : MonoBehaviour
     public enum AmmoTypes
     {
         Pistol = 0,
+        Rifle = 1,
     }
     private static readonly int ShootAnimationId = Animator.StringToHash("Shoot");
     private DateTime _lastShootDate = DateTime.MinValue;

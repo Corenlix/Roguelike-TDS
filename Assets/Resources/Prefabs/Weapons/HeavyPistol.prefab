@@ -51,7 +51,7 @@ MonoBehaviour:
   reloadTime: 0.9
   bullet: {fileID: 4553969803538595711, guid: 9423b03fff91b7d478a34bbc64f9137a, type: 3}
   attackParams:
-    damage: 5
+    damage: 6
     knockbackTime: 0.08
     knockbackForce: 10
     interactiveLayers:

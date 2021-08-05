@@ -17,7 +17,8 @@ public class AmmoController : MonoBehaviour
     private void Awake()
     {
         ResetAmmoCount();
-        _ammoCounts[Weapon.AmmoTypes.Pistol] = 20;
+        _ammoCounts[Weapon.AmmoTypes.Pistol] = 50;
+        _ammoCounts[Weapon.AmmoTypes.Rifle] = 20;
     }
 
     public int GetAmmoCount(Weapon.AmmoTypes ammoType)

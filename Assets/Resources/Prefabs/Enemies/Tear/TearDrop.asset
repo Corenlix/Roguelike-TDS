@@ -17,3 +17,5 @@ MonoBehaviour:
     chance: 20
   - obj: {fileID: 5394796592115200056, guid: 59270bfb8a6651a4c91a67a1d7e0dc16, type: 3}
     chance: 50
+  - obj: {fileID: 6639007825635269120, guid: fcc72b62f1e676449b87956831abfc41, type: 3}
+    chance: 25
