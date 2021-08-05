@@ -26,8 +26,9 @@ GameObject:
   - component: {fileID: 8673567229383218384}
   - component: {fileID: -3517618039258824431}
   - component: {fileID: 4523453329687660272}
+  - component: {fileID: -1420074357371708726}
   m_Layer: 6
-  m_Name: enemy
+  m_Name: Tear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,3 +374,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2173913, y: 1.1304348}
   m_EdgeRadius: 0
+--- !u!114 &-1420074357371708726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671572111481564369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e3bf73bfb2da62499b0558f4062b680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnChances: {fileID: 11400000, guid: 10b4a84c53d442e41ab8bf271c107fd9, type: 2}
