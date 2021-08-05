@@ -5,7 +5,7 @@ using UnityEngine;
 public class AmmoController : MonoBehaviour
 {
     private readonly Dictionary<Weapon.AmmoTypes, int> _ammoCounts = new Dictionary<Weapon.AmmoTypes, int>();
-    
+
     private void ResetAmmoCount()
     {
         foreach (Weapon.AmmoTypes ammoType in Enum.GetValues(typeof(Weapon.AmmoTypes)))
@@ -13,6 +13,7 @@ public class AmmoController : MonoBehaviour
             _ammoCounts.Add(ammoType, 0);
         }
     }
+
     private void Awake()
     {
         ResetAmmoCount();
@@ -30,4 +31,10 @@ public class AmmoController : MonoBehaviour
         if (_ammoCounts[ammoType] < 0)
             _ammoCounts[ammoType] = 0;
     }
+
+    public void AddAmmo(Weapon.AmmoTypes ammoType, int count)
+    {
+        _ammoCounts[ammoType] += count;
+    }
+
 }

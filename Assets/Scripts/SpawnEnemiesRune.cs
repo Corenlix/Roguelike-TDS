@@ -9,7 +9,7 @@ public class SpawnEnemiesRune : MonoBehaviour
     public UnityEvent<SpawnEnemiesRune> runeDestroyed; 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<PlayerControls>())
+        if (other.GetComponent<Player>())
         {
             runeDestroyed?.Invoke(this);
             Destroy(gameObject);
