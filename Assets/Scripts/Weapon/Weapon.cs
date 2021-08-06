@@ -12,7 +12,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Animator weaponAnimator;
     [SerializeField] private AmmoTypes ammoType;
     public AmmoTypes AmmoType => ammoType;
-    public AttackParams AttackParams => attackParams;
+    [SerializeField] private WeaponTypes weaponType;
+    public WeaponTypes WeaponType => weaponType;
     [SerializeField] private float reloadTime;
     [SerializeField] private Bullet bullet;
     [SerializeField] private AttackParams attackParams;
@@ -27,15 +28,20 @@ public class Weapon : MonoBehaviour
         Pistol = 0,
         Rifle = 1,
     }
+
+    public enum WeaponTypes
+    {
+        Pistol = 0,
+        HeavyPistol = 1,
+    }
+    
     private static readonly int ShootAnimationId = Animator.StringToHash("Shoot");
-    private DateTime _lastShootDate = DateTime.MinValue;
     private float _reloadTimeRemain;
     
     public bool TryShoot(Vector2 targetPosition)
     {
         if (ReadyToShot)
         {
-            _lastShootDate = DateTime.UtcNow;
             weaponAnimator.SetTrigger(ShootAnimationId);
             Shoot(targetPosition);
             return true;

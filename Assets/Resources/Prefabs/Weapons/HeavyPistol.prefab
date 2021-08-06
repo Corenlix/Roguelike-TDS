@@ -48,6 +48,7 @@ MonoBehaviour:
   shootPoint: {fileID: 985723881898572832}
   weaponAnimator: {fileID: 985723882338541335}
   ammoType: 1
+  weaponType: 1
   reloadTime: 0.9
   bullet: {fileID: 4553969803538595711, guid: 9423b03fff91b7d478a34bbc64f9137a, type: 3}
   attackParams:

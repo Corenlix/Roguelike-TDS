@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -49,8 +50,8 @@ public class WeaponsControl : MonoBehaviour
         {
             weapon.gameObject.SetActive(false);
         }
-        _selectedWeaponNumber = 0;
-        SwapWeapon();
+        if(weapons.Count > 0)
+            SelectWeapon(0);
     }
 
     public void SwapWeapon()
@@ -58,25 +59,49 @@ public class WeaponsControl : MonoBehaviour
         if (weapons.Count <= 1)
             return;
 
-        var currentWeapon = weapons[_selectedWeaponNumber];
+        SelectWeapon((_selectedWeaponNumber + 1) % weapons.Count);
+    }
+
+    private void SelectWeapon(int weaponNumber)
+    {
+        var currentWeapon = SelectedWeapon;
         currentWeapon.gameObject.SetActive(false);
 
-        _selectedWeaponNumber = (_selectedWeaponNumber + 1) % weapons.Count;
-        var nextWeapon = weapons[_selectedWeaponNumber];
+        _selectedWeaponNumber = weaponNumber;
+
+        var nextWeapon = SelectedWeapon;
         nextWeapon.transform.rotation = currentWeapon.transform.rotation;
         nextWeapon.gameObject.SetActive(true);
         
         onWeaponChanged?.Invoke(nextWeapon);
     }
 
+    private void RemoveWeapon(Weapon weapon)
+    {
+        var selectedWeapon = SelectedWeapon;
+        
+        weapons.Remove(weapon);
+        Destroy(weapon.gameObject);
+
+        if (selectedWeapon == weapon)
+            SelectWeapon(0);
+        else _selectedWeaponNumber = weapons.IndexOf(selectedWeapon);
+    }
     public void AddWeapon(Weapon weapon)
     {
-        if (weapons.Count < maxWeaponsCount)
+        var oldWeaponSameType = weapons.FirstOrDefault(x => x.WeaponType == weapon.WeaponType);
+
+        var newWeapon = Instantiate(weapon, transform.position, Quaternion.identity, transform);
+        newWeapon.transform.position = transform.position;
+        weapons.Add(newWeapon);
+        
+        SelectWeapon(weapons.IndexOf(newWeapon));
+        
+        if (oldWeaponSameType)
+            RemoveWeapon(oldWeaponSameType);
+        if (weapons.Count > maxWeaponsCount)
         {
-            var newWeapon = Instantiate(weapon, transform.position, Quaternion.identity, transform);
-            newWeapon.transform.position = transform.position;
-            weapons.Add(newWeapon);
-            SwapWeapon();
+            RemoveWeapon(SelectedWeapon);
         }
     }
 }
