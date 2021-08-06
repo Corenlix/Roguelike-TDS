@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
             _weaponsControl.Attack(mouseWorldPosition);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") != 0)
             _weaponsControl.SwapWeapon();
     }
     private void Awake()
