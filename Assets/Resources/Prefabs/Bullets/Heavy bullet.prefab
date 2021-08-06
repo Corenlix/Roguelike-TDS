@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -5849546875255470129, guid: 2e46823076736f64c96e897d73247546, type: 3}
+      propertyPath: destructionParticle
+      value: 
+      objectReference: {fileID: 2932322704096029585, guid: 188ddc345dfb14742b6c704252f55ca3, type: 3}
+    - target: {fileID: -5849546875255470129, guid: 2e46823076736f64c96e897d73247546, type: 3}
       propertyPath: destroyAfterDealingDamage
       value: 0
       objectReference: {fileID: 0}

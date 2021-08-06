@@ -6,8 +6,9 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour
 {
     [SerializeField] private ParticleSystem destructionParticle;
-    protected bool SpawnParticles = true;
+    [SerializeField] private bool destroyAfterDealingDamage = true;
     protected AttackParams AttackParams;
+    
 
     public void Init(Vector2 shootPoint, AttackParams attackParams)
     {
@@ -19,6 +20,9 @@ public abstract class Bullet : MonoBehaviour
 
     protected bool DealDamage(Health damageTaker)
     {
+        if (!damageTaker)
+            return false;
+        
         if (damageTaker.DealDamage(AttackParams.Damage))
         {
             var knockback = damageTaker.GetComponent<Knockback>();
@@ -33,11 +37,39 @@ public abstract class Bullet : MonoBehaviour
         return false;
     }
 
-private void OnDestroy()
+    protected void Attack(Collider2D target)
     {
-        if(!destructionParticle || !SpawnParticles)
-            return;
+        if (IsTargetInteractable(target, out var targetHealth))
+        {
+            if (DealDamage(targetHealth))
+            {
+                if (destroyAfterDealingDamage)
+                    Destroy(gameObject);
+            }
+            else
+            {
+                SpawnParticles();
+                Destroy(gameObject);
+            }
+        }
+    }
+    private bool IsTargetInteractable(Collider2D target, out Health targetHealth)
+    {
+        if((AttackParams.InteractiveLayers.value & (1 << target.gameObject.layer)) != 0)
+        {
+            targetHealth = target.GetComponent<Health>();
+            if (!targetHealth || target.isTrigger)
+            {
+                return true;
+            }
+        }
 
-        Instantiate(destructionParticle, transform.position, Quaternion.identity);
+        targetHealth = null;
+        return false;
+    }
+    private void SpawnParticles()
+    {
+        if(destructionParticle)
+            Instantiate(destructionParticle, transform.position, Quaternion.identity);
     }
 }

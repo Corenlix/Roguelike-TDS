@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(VelocityMove))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] private PlayerAbility activeAbility;
     private WeaponsControl _weaponsControl;
     private AmmoController _ammoController;
     private Camera _mainCamera;
@@ -39,6 +40,9 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") != 0)
             _weaponsControl.SwapWeapon();
+        
+        if(Input.GetMouseButton(1))
+            activeAbility.TryApplyAbility(mouseWorldPosition);
     }
     private void Awake()
     {

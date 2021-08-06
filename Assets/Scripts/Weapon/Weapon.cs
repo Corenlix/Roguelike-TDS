@@ -4,19 +4,19 @@ using UnityEngine;
 
 
 [Serializable]
-public class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour
 {
     public virtual bool ReadyToShot => _reloadTimeRemain <= 0;
 
-    [SerializeField] private Transform shootPoint;
+    [SerializeField] protected Transform shootPoint;
     [SerializeField] private Animator weaponAnimator;
     [SerializeField] private AmmoTypes ammoType;
     public AmmoTypes AmmoType => ammoType;
     [SerializeField] private WeaponTypes weaponType;
     public WeaponTypes WeaponType => weaponType;
     [SerializeField] private float reloadTime;
-    [SerializeField] private Bullet bullet;
-    [SerializeField] private AttackParams attackParams;
+    [SerializeField] protected Bullet bullet;
+    [SerializeField] protected AttackParams attackParams;
     public float ShakeCamTime => shakeCamTime;
     [SerializeField] private float shakeCamTime;
     public float ShakeCamForce => shakeCamForce;
@@ -35,15 +35,16 @@ public class Weapon : MonoBehaviour
         HeavyPistol = 1,
     }
     
-    private static readonly int ShootAnimationId = Animator.StringToHash("Shoot");
+    private static readonly int ShootTriggerId = Animator.StringToHash("Shoot");
     private float _reloadTimeRemain;
     
     public bool TryShoot(Vector2 targetPosition)
     {
         if (ReadyToShot)
         {
-            weaponAnimator.SetTrigger(ShootAnimationId);
+            weaponAnimator.SetTrigger(ShootTriggerId);
             Shoot(targetPosition);
+            Reload();
             return true;
         }
 
@@ -61,13 +62,13 @@ public class Weapon : MonoBehaviour
         transform.rotation = RotateHelper.GetAngleFromDirection(direction);
         
     }
-    private void Shoot(Vector2 direction)
+
+    protected abstract void Shoot(Vector2 direction);
+
+    private void Reload()
     {
-        Bullet newBullet = Instantiate(bullet, shootPoint.transform.position, Quaternion.identity);
-        newBullet.Init(direction, attackParams);
         _reloadTimeRemain = reloadTime;
     }
-    
     private void Update()
     {
         _reloadTimeRemain -= Time.deltaTime;
