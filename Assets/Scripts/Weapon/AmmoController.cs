@@ -5,45 +5,50 @@ using UnityEngine.Events;
 
 public class AmmoController : MonoBehaviour
 {
-    public UnityEvent<Weapon.AmmoTypes, int> OnAmmoCountChanged;
+    public UnityEvent<AmmoType, int> onAmmoCountChanged;
     
-    private readonly Dictionary<Weapon.AmmoTypes, int> _ammoCounts = new Dictionary<Weapon.AmmoTypes, int>();
+    private readonly Dictionary<AmmoType, int> _ammoCounts = new Dictionary<AmmoType, int>();
 
     private void ResetAmmoCount()
     {
-        foreach (Weapon.AmmoTypes ammoType in Enum.GetValues(typeof(Weapon.AmmoTypes)))
+        foreach (AmmoType ammoType in Enum.GetValues(typeof(AmmoType)))
         {
             _ammoCounts.Add(ammoType, 0);
-            OnAmmoCountChanged?.Invoke(ammoType, 0);
+            onAmmoCountChanged?.Invoke(ammoType, 0);
         }
     }
 
     private void Awake()
     {
         ResetAmmoCount();
-        AddAmmo(Weapon.AmmoTypes.Pistol, 50);
-        AddAmmo(Weapon.AmmoTypes.Rifle, 20);
+        AddAmmo(AmmoType.Pistol, 50);
+        AddAmmo(AmmoType.Rifle, 20);
     }
 
-    public int GetAmmoCount(Weapon.AmmoTypes ammoType)
+    public int GetAmmoCount(AmmoType ammoType)
     {
         return _ammoCounts[ammoType];
     }
 
-    public void SubtractAmmo(Weapon.AmmoTypes ammoType)
+    public void SubtractAmmo(AmmoType ammoType)
     {
         _ammoCounts[ammoType] -= 1;
         if (_ammoCounts[ammoType] < 0)
             _ammoCounts[ammoType] = 0;
         
-        OnAmmoCountChanged?.Invoke(ammoType, _ammoCounts[ammoType]);
+        onAmmoCountChanged?.Invoke(ammoType, _ammoCounts[ammoType]);
     }
 
-    public void AddAmmo(Weapon.AmmoTypes ammoType, int count)
+    public void AddAmmo(AmmoType ammoType, int count)
     {
         _ammoCounts[ammoType] += count;
         
-        OnAmmoCountChanged?.Invoke(ammoType, _ammoCounts[ammoType]);
+        onAmmoCountChanged?.Invoke(ammoType, _ammoCounts[ammoType]);
     }
-
+}
+[Serializable]
+public enum AmmoType
+{
+    Pistol = 0,
+    Rifle = 1,
 }

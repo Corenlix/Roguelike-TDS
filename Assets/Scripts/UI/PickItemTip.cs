@@ -9,14 +9,14 @@ public class PickItemTip : MonoBehaviour
     [SerializeField] private TextMeshPro tipText;
     public void ShowTip(Item item)
     {
-        tipText.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         tipText.text = $"[E] {item.ItemName}";
         tipText.transform.position = item.transform.position;
     }
 
     public void HideTip()
     {
-        tipText.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private void Awake()

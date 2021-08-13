@@ -4,33 +4,34 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(AmmoController))]
+[RequireComponent(typeof(Weapon))]
 public class WeaponsControl : MonoBehaviour
 {
-    public UnityEvent<Weapon> onWeaponChanged;
-    public UnityEvent<Weapon, Vector2> onShoot;
-    
-    [SerializeField] private int maxWeaponsCount;
-    private int _selectedWeaponNumber;
-    
-    private List<Weapon> weapons = new List<Weapon>();
-    private Weapon SelectedWeapon => weapons[_selectedWeaponNumber];
-    private AmmoController playerAmmoController;
+    public UnityEvent<WeaponStats> onWeaponChanged;
+    public UnityEvent<WeaponStats, Vector2> onShoot;
 
+    [SerializeField] private int maxWeaponsCount;
+    
+    private WeaponStats SelectedWeaponStats => _weaponsStats[_selectedWeaponNumber];
+    private Weapon weapon;
+    private int _selectedWeaponNumber;
+    private readonly List<WeaponStats> _weaponsStats = new List<WeaponStats>();
+    private AmmoController playerAmmoController;
 
     public void RotateSelectedWeaponToTarget(Vector2 target)
     {
-        SelectedWeapon.RotateWeapon(target);
+        weapon.RotateWeapon(target);
     }
     
     public bool Attack(Vector2 targetPosition)
     { 
-        var selectedWeaponAmmoType = SelectedWeapon.AmmoType;
+        var selectedWeaponAmmoType = SelectedWeaponStats.AmmoType;
         if (playerAmmoController.GetAmmoCount(selectedWeaponAmmoType) > 0)
         {
-            if (SelectedWeapon.TryShoot(targetPosition))
+            if (weapon.TryShoot(targetPosition))
             {
                 playerAmmoController.SubtractAmmo(selectedWeaponAmmoType);
-                onShoot?.Invoke(SelectedWeapon, targetPosition - (Vector2)transform.position);
+                onShoot?.Invoke(SelectedWeaponStats, targetPosition - (Vector2)transform.position);
                 return true;
             }
         }
@@ -40,68 +41,53 @@ public class WeaponsControl : MonoBehaviour
 
     private void Awake()
     {
-        ResetWeapons();
+        weapon = GetComponent<Weapon>();
         playerAmmoController = GetComponent<AmmoController>();
+        ResetWeapons();
     }
     
     private void ResetWeapons()
     {
-        foreach (var weapon in weapons)
-        {
-            weapon.gameObject.SetActive(false);
-        }
-        if(weapons.Count > 0)
+        if(_weaponsStats.Count > 0)
             SelectWeapon(0);
     }
 
     public void SwapWeapon()
     {
-        if (weapons.Count <= 1)
+        if (_weaponsStats.Count <= 1)
             return;
 
-        SelectWeapon((_selectedWeaponNumber + 1) % weapons.Count);
+        SelectWeapon((_selectedWeaponNumber + 1) % _weaponsStats.Count);
     }
 
     private void SelectWeapon(int weaponNumber)
     {
-        var currentWeapon = SelectedWeapon;
-        currentWeapon.gameObject.SetActive(false);
-
         _selectedWeaponNumber = weaponNumber;
+        weapon.ChangeWeaponStats(SelectedWeaponStats);
 
-        var nextWeapon = SelectedWeapon;
-        nextWeapon.transform.rotation = currentWeapon.transform.rotation;
-        nextWeapon.gameObject.SetActive(true);
-        
-        onWeaponChanged?.Invoke(nextWeapon);
+        onWeaponChanged?.Invoke(SelectedWeaponStats);
     }
 
-    private void RemoveWeapon(Weapon weapon)
+    private void RemoveWeapon(WeaponStats removingWeaponStats)
     {
-        var selectedWeapon = SelectedWeapon;
+        WeaponStats selectedWeaponStats = SelectedWeaponStats;
         
-        weapons.Remove(weapon);
-        Destroy(weapon.gameObject);
+        _weaponsStats.Remove(removingWeaponStats);
 
-        if (selectedWeapon == weapon)
-            SelectWeapon(0);
-        else _selectedWeaponNumber = weapons.IndexOf(selectedWeapon);
+        int newWeaponNumber = selectedWeaponStats == removingWeaponStats ? 0 : _weaponsStats.IndexOf(selectedWeaponStats);
+        SelectWeapon(newWeaponNumber);
     }
-    public void AddWeapon(Weapon weapon)
-    {
-        var oldWeaponSameType = weapons.FirstOrDefault(x => x.WeaponType == weapon.WeaponType);
 
-        var newWeapon = Instantiate(weapon, transform.position, Quaternion.identity, transform);
-        newWeapon.transform.position = transform.position;
-        weapons.Add(newWeapon);
-        
-        SelectWeapon(weapons.IndexOf(newWeapon));
-        
+    public void AddWeapon(WeaponStats weaponStats)
+    {
+        var oldWeaponSameType = _weaponsStats.FirstOrDefault(x => x == weaponStats);
         if (oldWeaponSameType)
-            RemoveWeapon(oldWeaponSameType);
-        if (weapons.Count > maxWeaponsCount)
-        {
-            RemoveWeapon(SelectedWeapon);
-        }
+            return;
+
+        if (_weaponsStats.Count == maxWeaponsCount)
+            RemoveWeapon(SelectedWeaponStats);
+        
+        _weaponsStats.Add(weaponStats);
+        SelectWeapon(_weaponsStats.IndexOf(weaponStats));
     }
 }

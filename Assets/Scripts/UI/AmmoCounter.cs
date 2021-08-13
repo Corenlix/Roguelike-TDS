@@ -8,20 +8,20 @@ using UnityEngine.PlayerLoop;
 public class AmmoCounter : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI countText;
-    [SerializeField] private Weapon.AmmoTypes ammoType;
+    [SerializeField] private AmmoType ammoType;
     [SerializeField] private AmmoController ammoController;
 
     private void OnEnable()
     {
-        ammoController.OnAmmoCountChanged?.AddListener(UpdateAmmo);
+        ammoController.onAmmoCountChanged?.AddListener(UpdateAmmo);
     }
 
     private void OnDisable()
     {
-        ammoController.OnAmmoCountChanged?.RemoveListener(UpdateAmmo);
+        ammoController.onAmmoCountChanged?.RemoveListener(UpdateAmmo);
     }
 
-    private void UpdateAmmo(Weapon.AmmoTypes eventAmmoType, int count)
+    private void UpdateAmmo(AmmoType eventAmmoType, int count)
     {
         if (eventAmmoType == ammoType)
             countText.text = count.ToString();

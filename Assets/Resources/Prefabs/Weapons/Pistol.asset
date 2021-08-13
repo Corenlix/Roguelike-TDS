@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88051eabf4a1e7d4b8c4bf76233fc519, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 3345a89acfbce1f44abb0453dbcfb9c7, type: 3}
+  ammoType: 0
+  weaponShooterType: 0
+  reloadTime: 0.3
+  bulletTemplate: {fileID: -5849546875255470129, guid: 2e46823076736f64c96e897d73247546, type: 3}
+  attackParams:
+    damage: 4
+    knockbackTime: 0.1
+    knockbackForce: 0.1
+    interactiveLayers:
+      serializedVersion: 2
+      m_Bits: 119
+  shakeCamTime: 0.07
+  shakeCamForce: 0.05

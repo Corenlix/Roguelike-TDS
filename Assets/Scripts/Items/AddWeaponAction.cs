@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AddWeaponAction : ItemAction
 {
-    [SerializeField] private Weapon weapon;
+    [SerializeField] private WeaponStats weapon;
     public override void Activate(Player player)
     {
         player.AddWeapon(weapon);

@@ -2,24 +2,22 @@ using System;
 using Helpers;
 using UnityEngine;
 
-[RequireComponent(typeof(WeaponsControl))]
-[RequireComponent(typeof(AmmoController))]
 [RequireComponent(typeof(VelocityMove))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerAbility activeAbility;
-    private WeaponsControl _weaponsControl;
-    private AmmoController _ammoController;
+    [SerializeField] private WeaponsControl weaponsControl;
+    [SerializeField] private AmmoController ammoController;
     private Camera _mainCamera;
 
-    public void AddAmmo(Weapon.AmmoTypes ammoType, int ammoCount)
+    public void AddAmmo(AmmoType ammoType, int ammoCount)
     {
-        _ammoController.AddAmmo(ammoType, ammoCount);
+        ammoController.AddAmmo(ammoType, ammoCount);
     }
 
-    public void AddWeapon(Weapon weapon)
+    public void AddWeapon(WeaponStats weaponStats)
     {
-        _weaponsControl.AddWeapon(weapon);
+        weaponsControl.AddWeapon(weaponStats);
     }
     
     private void Update()
@@ -31,37 +29,35 @@ public class Player : MonoBehaviour
     {
         var mouseWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         RotateHelper.FlipBodyToPosition(transform, mouseWorldPosition);
-        _weaponsControl.RotateSelectedWeaponToTarget(mouseWorldPosition);
+        weaponsControl.RotateSelectedWeaponToTarget(mouseWorldPosition);
 
         if (Input.GetMouseButton(0))
         {
-            _weaponsControl.Attack(mouseWorldPosition);
+            weaponsControl.Attack(mouseWorldPosition);
         }
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") != 0)
-            _weaponsControl.SwapWeapon();
+            weaponsControl.SwapWeapon();
         
         if(Input.GetMouseButton(1))
             activeAbility.TryApplyAbility(mouseWorldPosition);
     }
     private void Awake()
     {
-        _weaponsControl = GetComponent<WeaponsControl>();
         _mainCamera = Camera.main;
-        _ammoController = GetComponent<AmmoController>();
     }
 
     private void OnEnable()
     {
-        _weaponsControl.onShoot.AddListener(ShakeCamOnShoot);
+        weaponsControl.onShoot.AddListener(ShakeCamOnShoot);
     }
 
     private void OnDisable()
     {
-        _weaponsControl.onShoot.RemoveListener(ShakeCamOnShoot);
+        weaponsControl.onShoot.RemoveListener(ShakeCamOnShoot);
     }
 
-    private void ShakeCamOnShoot(Weapon weapon, Vector2 direction)
+    private void ShakeCamOnShoot(WeaponStats weapon, Vector2 direction)
     {
         ShakeCamera.Instance.Shake(weapon.ShakeCamForce, weapon.ShakeCamTime, direction);
     }

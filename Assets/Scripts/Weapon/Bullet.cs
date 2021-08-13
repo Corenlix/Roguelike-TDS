@@ -39,7 +39,7 @@ public abstract class Bullet : MonoBehaviour
 
     protected void Attack(Collider2D target)
     {
-        if (IsTargetInteractable(target, out var targetHealth))
+        if (DamageHelper.IsTargetInteractable(target, AttackParams.InteractiveLayers, out var targetHealth))
         {
             if (DealDamage(targetHealth))
             {
@@ -52,20 +52,6 @@ public abstract class Bullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    }
-    private bool IsTargetInteractable(Collider2D target, out Health targetHealth)
-    {
-        if((AttackParams.InteractiveLayers.value & (1 << target.gameObject.layer)) != 0)
-        {
-            targetHealth = target.GetComponent<Health>();
-            if (!targetHealth || target.isTrigger)
-            {
-                return true;
-            }
-        }
-
-        targetHealth = null;
-        return false;
     }
     private void SpawnParticles()
     {
