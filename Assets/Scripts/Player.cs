@@ -2,7 +2,7 @@ using System;
 using Helpers;
 using UnityEngine;
 
-[RequireComponent(typeof(VelocityMove))]
+[RequireComponent(typeof(VelocityMover))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerAbility activeAbility;
@@ -59,6 +59,6 @@ public class Player : MonoBehaviour
 
     private void ShakeCamOnShoot(WeaponStats weapon, Vector2 direction)
     {
-        ShakeCamera.Instance.Shake(weapon.ShakeCamForce, weapon.ShakeCamTime, direction);
+        CameraShaker.Instance.Shake(weapon.ShakeCamForce, weapon.ShakeCamTime, direction);
     }
 }

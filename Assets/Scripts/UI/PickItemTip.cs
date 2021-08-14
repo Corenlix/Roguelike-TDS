@@ -19,7 +19,7 @@ public class PickItemTip : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    private void Awake()
+    private void Start()
     {
         HideTip();
     }

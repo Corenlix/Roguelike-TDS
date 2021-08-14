@@ -5,20 +5,20 @@ using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(IMovePosition))]
+[RequireComponent(typeof(IMoverToPosition))]
 public class ChaseTargetState : EnemyState
 {
     [SerializeField] private float minWalkPeriod;
     [SerializeField] private float maxWalkPeriod;
     
-    private IMovePosition _movePosition;
+    private IMoverToPosition moverToPosition;
     private EnemyAbility ability;
     
     private float _timeRemainToWalk;
 
     private void Awake()
     {
-        _movePosition = GetComponent<IMovePosition>();
+        moverToPosition = GetComponent<IMoverToPosition>();
         ability = GetComponentInChildren<EnemyAbility>();
     }
 
@@ -39,7 +39,7 @@ public class ChaseTargetState : EnemyState
         if (_timeRemainToWalk > 0)
             return;
         
-        _movePosition.SetMovePoint(GetNewPoint());
+        moverToPosition.SetMovePoint(GetNewPoint());
         _timeRemainToWalk = Random.Range(minWalkPeriod, maxWalkPeriod);
     }
 
