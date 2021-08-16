@@ -1,26 +1,26 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Health))]
-public class OnTakeDamageAnimation : MonoBehaviour
+namespace VisualActions
 {
-    [SerializeField] private Animator animator;
-    private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
-
-    private void OnEnable()
+    [RequireComponent(typeof(Health))]
+    public class OnTakeDamageAnimation : MonoBehaviour
     {
-        GetComponent<Health>().onDamaged?.AddListener(PlayDamageAnimation);
-    }
+        [SerializeField] private Animator animator;
+        private static readonly int TakeDamage = Animator.StringToHash("TakeDamage");
 
-    private void OnDisable()
-    {
-        GetComponent<Health>().onDamaged?.RemoveListener(PlayDamageAnimation);
-    }
+        private void OnEnable()
+        {
+            GetComponent<Health>().Damaged += PlayDamageAnimation;
+        }
 
-    private void PlayDamageAnimation(int damage)
-    {
-        animator.SetTrigger(TakeDamage);
+        private void OnDisable()
+        {
+            GetComponent<Health>().Damaged -= PlayDamageAnimation;
+        }
+
+        private void PlayDamageAnimation(int damage)
+        {
+            animator.SetTrigger(TakeDamage);
+        }
     }
 }

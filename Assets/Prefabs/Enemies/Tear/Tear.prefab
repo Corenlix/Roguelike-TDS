@@ -67,22 +67,18 @@ GameObject:
   m_Component:
   - component: {fileID: 5671572111481564371}
   - component: {fileID: 5671572111481564370}
-  - component: {fileID: 5671572111481564376}
-  - component: {fileID: 5671572111481564383}
-  - component: {fileID: 5671572111481564381}
-  - component: {fileID: 5671572111481564380}
   - component: {fileID: 5671572111481564382}
+  - component: {fileID: 6712017427895236225}
   - component: {fileID: 5671572111481564388}
-  - component: {fileID: 5671572111481564389}
   - component: {fileID: 5277255803097616072}
   - component: {fileID: 5671572111481564379}
   - component: {fileID: 5671572111481564378}
   - component: {fileID: 4105553803034695919}
-  - component: {fileID: 6712017427895236225}
   - component: {fileID: 8673567229383218384}
   - component: {fileID: -3517618039258824431}
   - component: {fileID: 4523453329687660272}
   - component: {fileID: -1420074357371708726}
+  - component: {fileID: 2183272623278848551}
   m_Layer: 6
   m_Name: Tear
   m_TagString: Untagged
@@ -156,60 +152,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5671572111481564376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7306795c4b5059040824b6b31d4c7d4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultEnemyState: {fileID: 5671572111481564380}
---- !u!114 &5671572111481564383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f48c8d876b64efb92ccaebb4552e210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxDistance: 10
---- !u!114 &5671572111481564381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb9619cbad1694f4c94d89f421546329, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minDistance: 20
---- !u!114 &5671572111481564380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d6731c52f004ada89708ec58c14cc60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conditionsToEnter:
-  - {fileID: 5671572111481564381}
-  walkDistance: 3
 --- !u!114 &5671572111481564382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +166,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4
   bodyAnimator: {fileID: 5671572111481564379}
+--- !u!114 &6712017427895236225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671572111481564369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a1e019623b8a443b59ab4fc6044dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5671572111481564379}
 --- !u!114 &5671572111481564388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,22 +191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2fa8843cf6ea48449d7844d9c333df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5671572111481564389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec386ef6afbba854fbd21f07244757b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conditionsToEnter:
-  - {fileID: 5671572111481564383}
-  minWalkPeriod: 0.8
-  maxWalkPeriod: 3
 --- !u!114 &5277255803097616072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,15 +203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d02e8f63b9e66e04586164f790fa85a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onHealthChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onDamaged:
-    m_PersistentCalls:
-      m_Calls: []
-  onDied:
-    m_PersistentCalls:
-      m_Calls: []
   maxHealth: 10
 --- !u!95 &5671572111481564379
 Animator:
@@ -329,7 +259,7 @@ MonoBehaviour:
   layersToDamage:
     serializedVersion: 2
     m_Bits: 183
-  reloadTime: 20000
+  reloadTime: 4
   attackParams:
     damage: 2
     knockbackTime: 0.08
@@ -339,19 +269,6 @@ MonoBehaviour:
       m_Bits: 183
   bullet: {fileID: 3098822156584084998, guid: 220a1adfefadf3a4bbfa92b3ebd5a959, type: 3}
   shootPoint: {fileID: 5671572111481564371}
---- !u!114 &6712017427895236225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0a1e019623b8a443b59ab4fc6044dd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 5671572111481564379}
 --- !u!114 &8673567229383218384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,3 +334,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnChances: {fileID: 11400000, guid: 10b4a84c53d442e41ab8bf271c107fd9, type: 2}
+--- !u!114 &2183272623278848551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671572111481564369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2256bb1364264f448be124578d4b3f9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomWalkDistance: 3
+  randomWalkPeriod: 2
+  enterChaseStateDistance: 4
+  chaseMinPeriod: 2
+  chaseMaxPeriod: 4
+  enemyAbility: {fileID: 4105553803034695919}
+  exitChaseStateDistance: 10
+  moverToPosition: {fileID: 5671572111481564388}

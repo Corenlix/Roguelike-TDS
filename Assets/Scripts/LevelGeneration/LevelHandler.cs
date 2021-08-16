@@ -17,7 +17,8 @@ namespace LevelGeneration
 
         private Level _level;
         
-        public Level SpawnLevel()
+        [ContextMenu("Create Level")]
+        private Level SpawnLevel()
         {
             var level = levelCreator.CreateLevel();
             var entitySpawner = new EntitySpawner(level, player);

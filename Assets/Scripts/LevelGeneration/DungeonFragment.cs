@@ -13,8 +13,6 @@ namespace LevelGeneration
         private bool _isRoom;
         private DungeonFragment _firstChild, _secondChild;
 
-        [Range(0, 5)]
-        public static float MaxSizeDivide = 1.5f;
         [Range(10, 100)]
         public static int MinRoomSizePercent = 10;
         [Range(10, 100)]
@@ -24,7 +22,7 @@ namespace LevelGeneration
 
         public DungeonFragment(RectInt rect) 
         {
-            this._rect = rect;
+            _rect = rect;
         }
         public void SplitDungeon(int iterationsCount) 
         {
@@ -161,7 +159,8 @@ namespace LevelGeneration
 
             horizontalRect.SetMinMax(new Vector2Int(Mathf.Min(firstPoint.x, secondPoint.x), secondPoint.y),
                 new Vector2Int(Mathf.Max(firstPoint.x, secondPoint.x), secondPoint.y + CorridorsThickness - 1));
-
+            
+            
             var verticalRect = new RectInt();
             verticalRect.SetMinMax(new Vector2Int(firstPoint.x, Mathf.Min(firstPoint.y, secondPoint.y)),
                 new Vector2Int(firstPoint.x + CorridorsThickness - 1, Mathf.Max(firstPoint.y + 1, secondPoint.y + 1)));

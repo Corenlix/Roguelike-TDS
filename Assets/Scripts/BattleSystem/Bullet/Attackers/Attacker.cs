@@ -4,7 +4,7 @@ namespace BattleSystem.Bullet.Attackers
 {
     public abstract class Attacker
     {
-        public abstract bool Attack(Transform attacker, Collider2D target, AttackParams attackParams);
+        public abstract bool TryAttack(Transform attacker, Collider2D target, AttackParams attackParams);
 
         protected bool DealDamage(Transform attacker, Collider2D target, AttackParams attackParams)
         {

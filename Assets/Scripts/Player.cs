@@ -1,18 +1,20 @@
 using System;
+using BattleSystem;
 using Helpers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(VelocityMover))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerAbility activeAbility;
     [SerializeField] private WeaponsControl weaponsControl;
-    [SerializeField] private AmmoController ammoController;
+    [FormerlySerializedAs("ammoController")] [SerializeField] private AmmoBelt ammoBelt;
     private Camera _mainCamera;
 
     public void AddAmmo(AmmoType ammoType, int ammoCount)
     {
-        ammoController.AddAmmo(ammoType, ammoCount);
+        ammoBelt.AddAmmo(ammoType, ammoCount);
     }
 
     public void AddWeapon(WeaponStats weaponStats)

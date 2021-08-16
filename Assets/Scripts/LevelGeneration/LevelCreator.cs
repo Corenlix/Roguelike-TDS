@@ -13,7 +13,6 @@ namespace LevelGeneration
         [Range(0, 100)][SerializeField] private int walkerRotate90Chance = 60;
         [Range(0, 100)][SerializeField] private int walkerRotate180Chance = 5;
         
-        [Range(0, 5)][SerializeField] private float maxSizeDivide = 1.5f;
         [Range(10, 100)][SerializeField] private int minRoomSizePercent = 10;
         [Range(10, 100)][SerializeField] private int maxRoomSizePercent = 20;
         [Range(1,5)][SerializeField] private int corridorsThickness = 2;
@@ -45,26 +44,31 @@ namespace LevelGeneration
             {
                 LetWalkerToRoom(room);
             }
-
-            for (int i = 1; i < _levelCells.GetLength(0) - 2; i++)
-            {
-                for (int j = 1; j < _levelCells.GetLength(1) - 2; j++)
-                {
-                    if (_levelCells[i, j] == CellType.Wall && _levelCells[i, j + 1] != CellType.Wall &&
-                        _levelCells[i, j - 1] != CellType.Wall)
-                        _levelCells[i, j + 1] = CellType.Wall;
-                    
-                    if (_levelCells[i, j] == CellType.Wall && _levelCells[i+1, j + 1] != CellType.Wall &&
-                        _levelCells[i - 1, j] != CellType.Wall)
-                        _levelCells[i+1, j] = CellType.Wall;
-                }
-            }
+        
+            RemoveSingleCells();
             
             return new Level(_levelCells, rooms, corridors);
         }
+
+        private void RemoveSingleCells()
+        {
+            for (int k = 0; k < 5; k++)
+            {
+                for (int i = 1; i < _levelCells.GetLength(0) - 2; i++)
+                {
+                    for (int j = 1; j < _levelCells.GetLength(1) - 2; j++)
+                    {
+                        if (_levelCells[i, j] == CellType.Wall &&
+                            (_levelCells[i, j + 1] != CellType.Wall && _levelCells[i, j - 1] != CellType.Wall ||
+                             _levelCells[i + 1, j] != CellType.Wall && _levelCells[i - 1, j] != CellType.Wall))
+
+                            _levelCells[i, j] = CellType.RoomFloor;
+                    }
+                }
+            }
+        }
         private void InitDungeonFragmentVariables()
         {
-            DungeonFragment.MaxSizeDivide = maxSizeDivide;
             DungeonFragment.MinRoomSizePercent = minRoomSizePercent;
             DungeonFragment.MaxRoomSizePercent = maxRoomSizePercent;
             DungeonFragment.CorridorsThickness = corridorsThickness;

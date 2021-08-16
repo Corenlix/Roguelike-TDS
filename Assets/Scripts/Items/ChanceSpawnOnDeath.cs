@@ -1,26 +1,26 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(Health))]
-public class ChanceSpawnOnDeath : MonoBehaviour
+namespace Items
 {
-    [SerializeField]
-    private SpawnChances spawnChances;
-
-    private void OnEnable()
+    [RequireComponent(typeof(Health))]
+    public class ChanceSpawnOnDeath : MonoBehaviour
     {
-        GetComponent<Health>().onDied?.AddListener(SpawnItem);
-    }
+        [SerializeField]
+        private SpawnChances spawnChances;
 
-    private void OnDisable()
-    {
-        GetComponent<Health>().onDied?.RemoveListener(SpawnItem);   
-    }
+        private void OnEnable()
+        {
+            GetComponent<Health>().Died += SpawnItem;
+        }
 
-    private void SpawnItem()
-    {
-        spawnChances.TrySpawn(transform.position);
+        private void OnDisable()
+        {
+            GetComponent<Health>().Died -= SpawnItem;   
+        }
+
+        private void SpawnItem()
+        {
+            spawnChances.TrySpawn(transform.position);
+        }
     }
 }

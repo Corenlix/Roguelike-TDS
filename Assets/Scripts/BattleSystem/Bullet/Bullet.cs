@@ -1,14 +1,15 @@
 using System.Linq;
 using BattleSystem.Bullet.Attackers;
 using BattleSystem.Bullet.TargetInteractiveCheckers;
+using UI;
 using UnityEngine;
 
 namespace BattleSystem.Bullet
 {
     public class Bullet : MonoBehaviour
     {
-        [SerializeField] private BulletBehavior bulletBehavior;
-        [SerializeField] private GameObject objectSpawningOnHitWall;
+        [SerializeField] private BulletBehavior bulletBehavior; 
+        [SerializeField] private GameObject wallHitEffect;
         [SerializeField] private AttackerType attackerType;
     
         private AttackParams _attackParams;
@@ -38,13 +39,13 @@ namespace BattleSystem.Bullet
 
         private void OnEnemyHit(Collider2D enemyCollider)
         {
-            if (_attacker.Attack(transform, enemyCollider, _attackParams))
+            if (_attacker.TryAttack(transform, enemyCollider, _attackParams))
                 PopupsSpawner.Instance.SpawnDamagePopup(transform.position, _attackParams.Damage);
         }
         private void OnWallHit()
         {
-            if(objectSpawningOnHitWall)
-                Instantiate(objectSpawningOnHitWall, transform.position, Quaternion.identity);
+            if(wallHitEffect)
+                Instantiate(wallHitEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

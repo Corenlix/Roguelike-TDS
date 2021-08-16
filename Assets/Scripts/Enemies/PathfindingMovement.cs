@@ -1,15 +1,15 @@
+using System;
 using System.Collections.Generic;
 using LevelGeneration;
 using UnityEngine;
-using UnityEngine.Events;
 
 [RequireComponent(typeof(VelocityMover))]
-public class PathfindingMovement : MonoBehaviour, IMoverToPosition
+public class PathfindingMovement : MoverToPosition
 {
     private VelocityMover moverVelocity;
     private List<Vector2Int> _pathPoints;
 
-    public event UnityAction MovingEnded;
+    public override event Action MovingEnded;
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class PathfindingMovement : MonoBehaviour, IMoverToPosition
         UpdateVelocity();
     }
 
-    public void SetMovePoint(Vector2 position)
+    public override void SetMovePoint(Vector2 position)
     {
         if(!moverVelocity)
             moverVelocity = GetComponent<VelocityMover>();
@@ -31,7 +31,7 @@ public class PathfindingMovement : MonoBehaviour, IMoverToPosition
         else moverVelocity.SetVelocityDirection(GetMoveDirection());
     }
 
-    public void Reset()
+    public override void Reset()
     {
         MovingEnded?.Invoke();
         moverVelocity.SetVelocityDirection(Vector2.zero);

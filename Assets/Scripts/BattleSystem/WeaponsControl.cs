@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using BattleSystem;
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(AmmoController))]
+[RequireComponent(typeof(AmmoBelt))]
 [RequireComponent(typeof(Weapon))]
 public class WeaponsControl : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class WeaponsControl : MonoBehaviour
     private Weapon weapon;
     private int _selectedWeaponNumber;
     private readonly List<WeaponStats> _weaponsStats = new List<WeaponStats>();
-    private AmmoController playerAmmoController;
+    private AmmoBelt playerAmmoBelt;
 
     public void RotateSelectedWeaponToTarget(Vector2 target)
     {
@@ -26,11 +27,11 @@ public class WeaponsControl : MonoBehaviour
     public bool Attack(Vector2 targetPosition)
     { 
         var selectedWeaponAmmoType = SelectedWeaponStats.AmmoType;
-        if (playerAmmoController.GetAmmoCount(selectedWeaponAmmoType) > 0)
+        if (playerAmmoBelt.GetAmmoCount(selectedWeaponAmmoType) > 0)
         {
             if (weapon.TryShoot(targetPosition))
             {
-                playerAmmoController.SubtractAmmo(selectedWeaponAmmoType);
+                playerAmmoBelt.SubtractAmmo(selectedWeaponAmmoType);
                 onShoot?.Invoke(SelectedWeaponStats, targetPosition - (Vector2)transform.position);
                 return true;
             }
@@ -42,7 +43,7 @@ public class WeaponsControl : MonoBehaviour
     private void Awake()
     {
         weapon = GetComponent<Weapon>();
-        playerAmmoController = GetComponent<AmmoController>();
+        playerAmmoBelt = GetComponent<AmmoBelt>();
         ResetWeapons();
     }
     

@@ -1,31 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class PopupsSpawner : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private GameObject damagePopupPrefab;
-    [SerializeField] private GameObject itemPickedPrefab;
-    public static PopupsSpawner Instance;
-
-    private void Awake()
+    public class PopupsSpawner : MonoBehaviour
     {
-        if(Instance)
-            Destroy(Instance.gameObject);
-        Instance = this;
-    }
-    public void SpawnDamagePopup(Vector2 position, int damage)
-    {
-        var spawnedPopup = Instantiate(damagePopupPrefab,  position, quaternion.identity, transform);
-        spawnedPopup.GetComponentInChildren<TextMeshPro>().text = damage.ToString();
-    }
+        [SerializeField] private GameObject damagePopupPrefab;
+        [SerializeField] private GameObject itemPickedPrefab;
+        public static PopupsSpawner Instance;
 
-    public void SpawnItemPickPopup(Vector2 position, string text)
-    {
-        var spawnedPopup = Instantiate(itemPickedPrefab,  position, quaternion.identity, transform);
-        spawnedPopup.GetComponentInChildren<TextMeshPro>().text = text;
+        private void Awake()
+        {
+            if(Instance)
+                Destroy(Instance.gameObject);
+            Instance = this;
+        }
+        public void SpawnDamagePopup(Vector2 position, int damage)
+        {
+            var spawnedPopup = Instantiate(damagePopupPrefab,  position, quaternion.identity, transform);
+            spawnedPopup.GetComponentInChildren<TextMeshPro>().text = damage.ToString();
+        }
 
+        public void SpawnItemPickPopup(Vector2 position, string text)
+        {
+            var spawnedPopup = Instantiate(itemPickedPrefab,  position, quaternion.identity, transform);
+            spawnedPopup.GetComponentInChildren<TextMeshPro>().text = text;
+
+        }
     }
 }

@@ -1,29 +1,30 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using BattleSystem;
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
-public class AmmoCounter : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI countText;
-    [SerializeField] private AmmoType ammoType;
-    [SerializeField] private AmmoController ammoController;
-
-    private void OnEnable()
+    public class AmmoCounter : MonoBehaviour
     {
-        ammoController.onAmmoCountChanged?.AddListener(UpdateAmmo);
-    }
+        [SerializeField] private TextMeshProUGUI countText;
+        [SerializeField] private AmmoType ammoType;
+        [SerializeField] private AmmoBelt ammoBelt;
 
-    private void OnDisable()
-    {
-        ammoController.onAmmoCountChanged?.RemoveListener(UpdateAmmo);
-    }
+        private void OnEnable()
+        {
+            ammoBelt.AmmoCountChanged += UpdateAmmo;
+        }
 
-    private void UpdateAmmo(AmmoType eventAmmoType, int count)
-    {
-        if (eventAmmoType == ammoType)
-            countText.text = count.ToString();
+        private void OnDisable()
+        {
+            ammoBelt.AmmoCountChanged -= UpdateAmmo;
+        }
+
+        private void UpdateAmmo(AmmoType eventAmmoType, int count)
+        {
+            if (eventAmmoType == ammoType)
+                countText.text = count.ToString();
+        }
     }
 }

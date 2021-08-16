@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Health : MonoBehaviour
 {
-    public UnityEvent<int, int> onHealthChanged;
-    public UnityEvent<int> onDamaged;
-    public UnityEvent onDied;
+    public event Action<int,int> HealthChanged;
+    public event Action<int> Damaged;
+    public event Action Died;
         
     [SerializeField] private int maxHealth;
     private int _health;
@@ -17,8 +18,8 @@ public class Health : MonoBehaviour
     {
         _health -= damage;
         
-        onDamaged?.Invoke(damage);
-        onHealthChanged?.Invoke(_health, maxHealth);
+        Damaged?.Invoke(damage);
+        HealthChanged?.Invoke(_health, maxHealth);
         
         if(_health <= 0)
             OnDied();
@@ -28,11 +29,11 @@ public class Health : MonoBehaviour
     private void ResetHealth()
     {
         _health = maxHealth;
-        onHealthChanged?.Invoke(_health, maxHealth);
+        HealthChanged?.Invoke(_health, maxHealth);
     }
     private void OnDied()
     {
-        onDied?.Invoke();
+        Died?.Invoke();
         Destroy(gameObject);
     }
 
