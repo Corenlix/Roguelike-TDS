@@ -111,7 +111,7 @@ namespace LevelGeneration
             _firstChild.CreateCorridors();            
             _secondChild.CreateCorridors();
 
-            var newCorridor = GetPossibleCorridorBetweenFragments(_firstChild, _secondChild);
+            var newCorridor = GetPossibleCorridorBetweenFragments(_firstChild, _secondChild, false);
             _corridors.Add(newCorridor);
         }
         private static Corridor GetPossibleCorridorBetweenFragments(DungeonFragment firstFragment, DungeonFragment secondFragment, bool searchShortestWay = true, bool includingCorridors = true) 

@@ -19,10 +19,10 @@ MonoBehaviour:
   bulletTemplate: {fileID: 1667231275505185631, guid: 9423b03fff91b7d478a34bbc64f9137a, type: 3}
   attackParams:
     damage: 6
-    knockbackTime: 0.3
-    knockbackForce: 1
+    knockbackTime: 0.2
+    knockbackForce: 12
     interactiveLayers:
       serializedVersion: 2
       m_Bits: 119
-  shakeCamTime: 0.2
-  shakeCamForce: 0.2
+  shakeCamTime: 0.25
+  shakeCamForce: 0.25

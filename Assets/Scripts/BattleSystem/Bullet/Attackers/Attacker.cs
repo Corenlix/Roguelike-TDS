@@ -10,17 +10,17 @@ namespace BattleSystem.Bullet.Attackers
         {
             if (target.TryGetComponent(out Health targetHealth) && targetHealth.DealDamage(attackParams.Damage))
             {
-                Knockback(attacker.position, target, attackParams.KnockbackForce, attackParams.KnockbackTime);
+                Knockback(attacker, target, attackParams.KnockbackForce, attackParams.KnockbackTime);
                 return true;
             }
 
             return false;
         }
-        private void Knockback(Vector2 attackerPosition, Collider2D target, float knockbackForce, float knockbackTime)
+        private void Knockback(Transform attacker, Collider2D target, float knockbackForce, float knockbackTime)
         {
             if(target.TryGetComponent(out Knockback knockback))
             {
-                var direction = (target.ClosestPoint(attackerPosition) - attackerPosition).normalized;
+                var direction = attacker.right;
                 knockback.AddKnockback(direction * knockbackForce, knockbackTime);
             }
         }
