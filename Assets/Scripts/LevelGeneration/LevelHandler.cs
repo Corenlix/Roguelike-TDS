@@ -1,4 +1,5 @@
 using System.Linq;
+using Enemies;
 using Pathfinding;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace LevelGeneration
         [SerializeField] private LevelCreator levelCreator;
         [SerializeField] private LevelDrawer levelDrawer;
         [SerializeField] private Transform player;
-        [SerializeField] private GameObject enemiesPrefab;
+        [SerializeField] private EnemyFactory enemyFactory;
         [SerializeField] private SpawnEnemiesRune runesPrefab;
 
         private Level _level;
@@ -35,22 +36,10 @@ namespace LevelGeneration
             return level;
         }
 
-        private void CreateRune(Vector2 position, SpawnEnemiesRune rune)
+        private void CreateRune(Vector2 position, SpawnEnemiesRune runeTemplate)
         {
-            SpawnEnemiesRune createdRune = Instantiate(rune, position, Quaternion.identity);
-            createdRune.runeDestroyed.AddListener(
-                (destroyedRune) =>
-                {
-                    for (int i = 0; i <= 5; i++)
-                    {
-                        SpawnEnemy(destroyedRune.transform.position, enemiesPrefab);
-                    }
-                }
-                );
-        }
-        private void SpawnEnemy(Vector2 position, GameObject enemy)
-        {
-            Instantiate(enemy, position, Quaternion.identity);
+            var rune = Instantiate(runeTemplate, position, Quaternion.identity);
+            rune.SetEnemyFactory(enemyFactory);
         }
         private void Awake()
         {

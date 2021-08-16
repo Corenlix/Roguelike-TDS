@@ -42142,7 +42142,7 @@ MonoBehaviour:
   levelCreator: {fileID: 11400000, guid: 72d899025a0c3534f9e11f13c8d241b5, type: 2}
   levelDrawer: {fileID: 1203225305}
   player: {fileID: 994577963}
-  enemiesPrefab: {fileID: 5671572111481564369, guid: b7e14b46366ded34f802ae2f293fb1a5, type: 3}
+  enemyFactory: {fileID: 11400000, guid: 7ef04886757ea2a4eacdcca68a1916f3, type: 2}
   runesPrefab: {fileID: 4067668551282185276, guid: 67d3905dd588cbc4aaacca6e06f9ebaa, type: 3}
 --- !u!1 &1253761853
 GameObject:
