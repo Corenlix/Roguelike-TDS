@@ -1,17 +1,51 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
+using BattleSystem.Bullet.Attackers;
+using BattleSystem.Bullet.TargetInteractiveCheckers;
 using UnityEngine;
-using UnityEngine.Events;
 
-[RequireComponent(typeof(DamageDealer))]
-public class Bullet : MonoBehaviour
+namespace BattleSystem.Bullet
 {
-    [SerializeField] private BulletBehavior bulletBehavior;
-    public void Init(Vector2 targetPoint, AttackParams attackParams)
+    public class Bullet : MonoBehaviour
     {
-        bulletBehavior.Init(targetPoint);
-        GetComponent<DamageDealer>().SetAttackParams(attackParams);
+        [SerializeField] private BulletBehavior bulletBehavior;
+        [SerializeField] private GameObject objectSpawningOnHitWall;
+        [SerializeField] private AttackerType attackerType;
+    
+        private AttackParams _attackParams;
+        private Attacker _attacker;
+        private TargetInteractiveChecker[] _targetInteractiveCheckers;
+
+        public void Init(Vector2 targetPoint, AttackParams attackParams)
+        {
+            _attackParams = attackParams;
+            _attacker = AttackerCreator.Create(attackerType);
+            _targetInteractiveCheckers = new TargetInteractiveChecker[] { new LayersChecker(attackParams.InteractiveLayers) };
+        
+            bulletBehavior.Init(targetPoint);
+        }
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            var otherGameObject = other.gameObject;
+        
+            if (_targetInteractiveCheckers.Any(x=>!x.IsTargetInteractive(otherGameObject)))
+                return;
+        
+            if (other.isTrigger)
+                OnEnemyHit(other);
+            else
+                OnWallHit();
+        }
+
+        private void OnEnemyHit(Collider2D enemyCollider)
+        {
+            if (_attacker.Attack(transform, enemyCollider, _attackParams))
+                PopupsSpawner.Instance.SpawnDamagePopup(transform.position, _attackParams.Damage);
+        }
+        private void OnWallHit()
+        {
+            if(objectSpawningOnHitWall)
+                Instantiate(objectSpawningOnHitWall, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }

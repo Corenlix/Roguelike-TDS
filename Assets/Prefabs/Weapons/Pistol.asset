@@ -20,7 +20,7 @@ MonoBehaviour:
   attackParams:
     damage: 4
     knockbackTime: 0.2
-    knockbackForce: 3
+    knockbackForce: 6
     interactiveLayers:
       serializedVersion: 2
       m_Bits: 119
