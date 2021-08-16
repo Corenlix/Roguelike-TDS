@@ -67,17 +67,17 @@ GameObject:
   m_Component:
   - component: {fileID: 5671572111481564371}
   - component: {fileID: 5671572111481564370}
-  - component: {fileID: 5671572111481564382}
+  - component: {fileID: -1420074357371708726}
   - component: {fileID: 6712017427895236225}
+  - component: {fileID: 8673567229383218384}
+  - component: {fileID: 5671572111481564382}
   - component: {fileID: 5671572111481564388}
   - component: {fileID: 5277255803097616072}
   - component: {fileID: 5671572111481564379}
   - component: {fileID: 5671572111481564378}
   - component: {fileID: 4105553803034695919}
-  - component: {fileID: 8673567229383218384}
   - component: {fileID: -3517618039258824431}
   - component: {fileID: 4523453329687660272}
-  - component: {fileID: -1420074357371708726}
   - component: {fileID: 2183272623278848551}
   m_Layer: 6
   m_Name: Tear
@@ -153,6 +153,45 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1420074357371708726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671572111481564369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e3bf73bfb2da62499b0558f4062b680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnChances: {fileID: 11400000, guid: 10b4a84c53d442e41ab8bf271c107fd9, type: 2}
+--- !u!114 &6712017427895236225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671572111481564369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a1e019623b8a443b59ab4fc6044dd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5671572111481564379}
+--- !u!114 &8673567229383218384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671572111481564369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01eefa623c6052d46abba8d8ea127e7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newObject: {fileID: 421450894639908757, guid: 55a0d14d194b5b2439b581d106e8c014, type: 3}
 --- !u!114 &5671572111481564382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,19 +206,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4
   bodyAnimator: {fileID: 5671572111481564379}
---- !u!114 &6712017427895236225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0a1e019623b8a443b59ab4fc6044dd2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 5671572111481564379}
 --- !u!114 &5671572111481564388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +286,7 @@ MonoBehaviour:
   layersToDamage:
     serializedVersion: 2
     m_Bits: 183
-  reloadTime: 2000
+  reloadTime: 3
   attackParams:
     damage: 2
     knockbackTime: 0.08
@@ -270,19 +296,6 @@ MonoBehaviour:
       m_Bits: 183
   bullet: {fileID: 3098822156584084998, guid: 220a1adfefadf3a4bbfa92b3ebd5a959, type: 3}
   shootPoint: {fileID: 5671572111481564371}
---- !u!114 &8673567229383218384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01eefa623c6052d46abba8d8ea127e7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newObject: {fileID: 421450894639908757, guid: 55a0d14d194b5b2439b581d106e8c014, type: 3}
 --- !u!114 &-3517618039258824431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,19 +335,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2173913, y: 1.4244727}
   m_EdgeRadius: 0
---- !u!114 &-1420074357371708726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671572111481564369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e3bf73bfb2da62499b0558f4062b680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnChances: {fileID: 11400000, guid: 10b4a84c53d442e41ab8bf271c107fd9, type: 2}
 --- !u!114 &2183272623278848551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349,9 +349,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomWalkDistance: 3
   randomWalkPeriod: 2
-  enterChaseStateDistance: 4
-  chaseMinPeriod: 2
-  chaseMaxPeriod: 4
+  enterChaseStateDistance: 10
+  chaseMinPeriod: 1
+  chaseMaxPeriod: 20
   enemyAbility: {fileID: 4105553803034695919}
   exitChaseStateDistance: 10
   moverToPosition: {fileID: 5671572111481564388}

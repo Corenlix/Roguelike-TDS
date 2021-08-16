@@ -1,3 +1,4 @@
+using System;
 using Helpers;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -13,14 +14,16 @@ namespace Enemies.StateMachine.States
         private MoverToPosition _moverToPosition;
         private EnemyAbility _ability;
         private Transform _transform;
+        private Func<Vector2> _targetPositionFunc;
 
-        public ChaseTargetState(Transform transform, MoverToPosition moverToPosition, EnemyAbility enemyAbility, float minWalkPeriod, float maxWalkPeriod)
+        public ChaseTargetState(Transform transform, Func<Vector2> targetPositionFunc, MoverToPosition moverToPosition, EnemyAbility enemyAbility, float minWalkPeriod, float maxWalkPeriod)
         {
             _transform = transform;
             _moverToPosition = moverToPosition;
             _ability = enemyAbility;
             _minWalkPeriod = minWalkPeriod;
             _maxWalkPeriod = maxWalkPeriod;
+            _targetPositionFunc = targetPositionFunc;
         }
 
         public override void Enter()
@@ -58,7 +61,7 @@ namespace Enemies.StateMachine.States
         private Vector2 GetNewPoint()
         {
             var currentPosition = _transform.position;
-            var targetPosition = EnemiesTarget.Instance.GetTargetPosition();
+            var targetPosition = _targetPositionFunc();
             return new Vector2(Random.Range(Mathf.Min(currentPosition.x, targetPosition.x) - 3, Mathf.Max(currentPosition.x, targetPosition.x) + 3),
                 Random.Range(Mathf.Min(currentPosition.y, targetPosition.y) - 3, Mathf.Max(currentPosition.y, targetPosition.y) + 3));
         }

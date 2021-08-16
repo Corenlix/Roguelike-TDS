@@ -592,7 +592,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08f4251a68a2b964e891354cef68d2a7, type: 2}
+  - {fileID: 2100000, guid: e4efb37d9cd18c442a8c82fbb3c8c12e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -41701,7 +41701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03058ea1ac7924c43989c0e2229069e0, type: 2}
   m_sharedMaterial: {fileID: 6716449253642580939, guid: 03058ea1ac7924c43989c0e2229069e0, type: 2}
@@ -42113,7 +42113,7 @@ MonoBehaviour:
   wallsTilemap: {fileID: 1253761856}
   floorTale: {fileID: 11400000, guid: 1f055e805d748f34da5d93eab2d78559, type: 2}
   wallTile: {fileID: 11400000, guid: d042a596cffa9c049b1506f6f25d0d66, type: 2}
-  offset: 10
+  offset: 20
 --- !u!114 &1203225306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97310,7 +97310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03058ea1ac7924c43989c0e2229069e0, type: 2}
   m_sharedMaterial: {fileID: 6716449253642580939, guid: 03058ea1ac7924c43989c0e2229069e0, type: 2}

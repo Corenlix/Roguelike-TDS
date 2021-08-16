@@ -31,7 +31,7 @@ namespace Pathfinding
             }
         
             _openedNodes = new List<Node>();
-            var firstNode = OpenNode(new Vector2Int((int)(pointB.x), (int)(pointB.y)));
+            var firstNode = OpenNode(new Vector2Int(Mathf.RoundToInt(pointB.x), Mathf.RoundToInt(pointB.y)));
             firstNode.G = 0;
         
             _endPoint = new Vector2Int(Mathf.RoundToInt(pointA.x), Mathf.RoundToInt(pointA.y));
