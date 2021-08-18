@@ -16,13 +16,13 @@ namespace BattleSystem.Bullet
         private Attacker _attacker;
         private TargetInteractiveChecker[] _targetInteractiveCheckers;
 
-        public void Init(Vector2 targetPoint, AttackParams attackParams)
+        public void Init(Vector2 targetPosition, AttackParams attackParams)
         {
             _attackParams = attackParams;
             _attacker = AttackerCreator.Create(attackerType);
             _targetInteractiveCheckers = new TargetInteractiveChecker[] { new LayersChecker(attackParams.InteractiveLayers) };
         
-            bulletBehavior.Init(targetPoint);
+            bulletBehavior.Init(targetPosition);
         }
         private void OnTriggerEnter2D(Collider2D other)
         {

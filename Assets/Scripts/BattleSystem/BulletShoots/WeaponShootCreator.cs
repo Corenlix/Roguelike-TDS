@@ -10,6 +10,7 @@ namespace BattleSystem.BulletShoots
             {
                 WeaponShooterType.SingleBulletShooter => new SingleBulletShoot(),
                 WeaponShooterType.ShotgunShooter => new ShotgunShoot(),
+                WeaponShooterType.BurstShoot => new BurstShoot(),
                 _ => throw new ArgumentOutOfRangeException(weaponShooterType.ToString())
             };
         }
@@ -19,5 +20,6 @@ namespace BattleSystem.BulletShoots
     {
         SingleBulletShooter,
         ShotgunShooter,
+        BurstShoot
     }
 }
