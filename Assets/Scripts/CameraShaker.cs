@@ -7,8 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(CinemachineVirtualCamera))]
 public class CameraShaker : MonoBehaviour
 {
-    public static CameraShaker Instance;
-    
     private CinemachineFramingTransposer _cinemachineFramingTransposer;
     private CinemachineBasicMultiChannelPerlin _cinemachinePerlin;
     private float _shakeTime;
@@ -18,10 +16,6 @@ public class CameraShaker : MonoBehaviour
     
     private void Awake()
     {
-        if(Instance)
-            Destroy(Instance.gameObject);
-        Instance = this;
-        
         var cinemachine = GetComponent<CinemachineVirtualCamera>();
         _cinemachineFramingTransposer = cinemachine.GetCinemachineComponent<CinemachineFramingTransposer>();
         _cinemachinePerlin = cinemachine.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();

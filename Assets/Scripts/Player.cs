@@ -21,18 +21,5 @@ public class Player : MonoBehaviour
         weaponsControl.AddWeapon(weaponStats);
     }
 
-    private void OnEnable()
-    {
-        weaponsControl.onShoot.AddListener(ShakeCamOnShoot);
-    }
-
-    private void OnDisable()
-    {
-        weaponsControl.onShoot.RemoveListener(ShakeCamOnShoot);
-    }
-
-    private void ShakeCamOnShoot(WeaponStats weapon, Vector2 direction)
-    {
-        CameraShaker.Instance.Shake(weapon.ShakeCamForce, weapon.ShakeCamTime, direction);
-    }
+    
 }
