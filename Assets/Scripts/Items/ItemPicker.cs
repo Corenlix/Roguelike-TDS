@@ -6,11 +6,13 @@ using Items;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ItemPicker : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private PickItemTip pickItemTip;
+    [FormerlySerializedAs("pickedItemPopup")] [SerializeField] private PopupSpawner pickedItemPopupSpawner;
     
     private readonly List<Item> _itemsToPick = new List<Item>();
 
@@ -45,7 +47,7 @@ public class ItemPicker : MonoBehaviour
     private void PickItem(Item item)
     {
         item.OnPick(player);
-        PopupsSpawner.Instance.SpawnItemPickPopup(transform.position, item.PickText);
+        pickedItemPopupSpawner.SpawnPopup(transform.position, item.PickText);
     }
 
     private void Update()

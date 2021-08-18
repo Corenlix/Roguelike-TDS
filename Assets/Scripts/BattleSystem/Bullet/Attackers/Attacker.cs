@@ -11,6 +11,8 @@ namespace BattleSystem.Bullet.Attackers
             if (target.TryGetComponent(out Health targetHealth) && targetHealth.DealDamage(attackParams.Damage))
             {
                 Knockback(attacker, target, attackParams.KnockbackForce, attackParams.KnockbackTime);
+                if(attackParams.PopupSpawner)
+                    attackParams.PopupSpawner.SpawnPopup(target.transform.position, attackParams.Damage.ToString());
                 return true;
             }
 

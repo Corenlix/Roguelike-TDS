@@ -1,18 +1,28 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[Serializable]
-public class AttackParams
+namespace BattleSystem
 {
-    [SerializeField] private int damage;
-    [SerializeField] private float knockbackTime;
-    [SerializeField] private float knockbackForce;
-    [SerializeField] private LayerMask interactiveLayers;
+    [Serializable]
+    public class AttackParams
+    {
+        [SerializeField] private int damage;
+        [SerializeField] private float knockbackTime;
+        [SerializeField] private float knockbackForce;
+        [SerializeField] private LayerMask interactiveLayers;
+        [FormerlySerializedAs("popup")] [SerializeField] private PopupSpawner popupSpawner;
     
-    public int Damage => damage;
-    public float KnockbackTime => knockbackTime;
-    public float KnockbackForce => knockbackForce;
-    public LayerMask InteractiveLayers => interactiveLayers;
+        public int Damage => damage;
+        public float KnockbackTime => knockbackTime;
+        public float KnockbackForce => knockbackForce;
+        public LayerMask InteractiveLayers => interactiveLayers;
+        public PopupSpawner PopupSpawner => popupSpawner;
+    
+        public void SetPopupSpawner(PopupSpawner popupSpawner)
+        {
+            this.popupSpawner = popupSpawner;
+        }
+    }
 }

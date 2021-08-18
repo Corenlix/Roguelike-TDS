@@ -1,40 +1,42 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu]
-public class SpawnChances : ScriptableObject
+namespace Items
 {
-    [SerializeField] private List<SpawnChance> dropChances;
-
-    public GameObject TrySpawn(Vector2 position)
+    [CreateAssetMenu]
+    public class SpawnChances : ScriptableObject
     {
-        foreach (var spawnChance in dropChances)
-        {
-            var newObject = spawnChance.TrySpawn(position);
-            if (newObject)
-                return newObject;
-        }
-
-        return null;
-    }
-
-    [Serializable]
-    class SpawnChance
-    {
-        [SerializeField] private GameObject obj;
-        [SerializeField] private float chance;
+        [SerializeField] private List<SpawnChance> dropChances;
 
         public GameObject TrySpawn(Vector2 position)
         {
-            if (Random.Range(0, 100f) < chance)
+            float random = Random.Range(0f, 100f);
+            float currentDiapason = 0;
+            foreach (var spawnChance in dropChances)
+            {
+                currentDiapason += spawnChance.Chance;
+                if (random <= currentDiapason)
+                {
+                    return spawnChance.Spawn(position);
+                }
+            }
+
+            return null;
+        }
+
+        [Serializable]
+        class SpawnChance
+        {
+            [SerializeField] private GameObject obj;
+            [SerializeField] private float chance;
+            public float Chance => chance;
+
+            public GameObject Spawn(Vector2 position)
             {
                 return Instantiate(obj, position, Quaternion.identity);
             }
-            return null;
         }
     }
 }

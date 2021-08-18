@@ -39,8 +39,7 @@ namespace BattleSystem.Bullet
 
         private void OnEnemyHit(Collider2D enemyCollider)
         {
-            if (_attacker.TryAttack(transform, enemyCollider, _attackParams))
-                PopupsSpawner.Instance.SpawnDamagePopup(transform.position, _attackParams.Damage);
+            _attacker.TryAttack(transform, enemyCollider, _attackParams);
         }
         private void OnWallHit()
         {
