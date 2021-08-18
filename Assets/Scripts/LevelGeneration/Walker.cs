@@ -6,26 +6,26 @@ namespace LevelGeneration
 {
     class Walker
     {
-        private int rotate90Chance = 60;
-        private int rotate180Chance = 5;
-        private int madeErrorSteps = 0;
+        private int _rotate90Chance = 60;
+        private int _rotate180Chance = 5;
+        private int _madeErrorSteps = 0;
         
-        private CellType cellsType;
-        private Direction currentDirection;
-        private Vector2Int position;
-        private CellType[,] level;
+        private CellType _cellsType;
+        private Direction _currentDirection;
+        private Vector2Int _position;
+        private CellType[,] _level;
         
 
         public CellType[,] Walk(CellType[,] level, Vector2Int position, int steps, CellType cellsType, int rotate90Chance, int rotate180Chance) 
         {
-            this.level = level;
-            this.position = position;
-            this.rotate90Chance = rotate90Chance;
-            this.rotate180Chance = rotate180Chance;
-            this.cellsType = cellsType;
+            _level = level;
+            _position = position;
+            _rotate90Chance = rotate90Chance;
+            _rotate180Chance = rotate180Chance;
+            _cellsType = cellsType;
             
             SetRandomDirection();
-            while (steps > 0 && madeErrorSteps < 3000)
+            while (steps > 0 && _madeErrorSteps < 3000)
             {
                 Move();
                 if (ClearCell())
@@ -37,25 +37,25 @@ namespace LevelGeneration
         
         void Move()
         {
-            position += GetMoveDelta();
-            if (Random.Range(0, 100) < rotate90Chance)
+            _position += GetMoveDelta();
+            if (Random.Range(0, 100) < _rotate90Chance)
                 Rotate90();
-            else if (Random.Range(0, 100) < rotate180Chance)
+            else if (Random.Range(0, 100) < _rotate180Chance)
                 Rotate180();
 
-            if (position.x >= level.GetLength(0) || position.y >= level.GetLength(1) || position.x < 0 || position.y < 0)
+            if (_position.x >= _level.GetLength(0) || _position.y >= _level.GetLength(1) || _position.x < 0 || _position.y < 0)
             {
-                position.x = Mathf.Clamp(position.x, 0, level.GetLength(0) -1);
-                position.y = Mathf.Clamp(position.y, 0, level.GetLength(1) - 1);
+                _position.x = Mathf.Clamp(_position.x, 0, _level.GetLength(0) -1);
+                _position.y = Mathf.Clamp(_position.y, 0, _level.GetLength(1) - 1);
                 Rotate90();
             }
         }
         bool ClearCell()
         {
-            madeErrorSteps++;
-            if (level[position.x, position.y] != (int)CellType.Wall) return false;
-            level[position.x, position.y] = cellsType;
-            madeErrorSteps = 0;
+            _madeErrorSteps++;
+            if (_level[_position.x, _position.y] != (int)CellType.Wall) return false;
+            _level[_position.x, _position.y] = _cellsType;
+            _madeErrorSteps = 0;
             return true;
         }
 
@@ -63,18 +63,18 @@ namespace LevelGeneration
         {
             var leftOrRight = Random.Range(0, 100);
             if (leftOrRight > 50)
-                currentDirection = (Direction)(((int)currentDirection + 1) % 4);
+                _currentDirection = (Direction)(((int)_currentDirection + 1) % 4);
             else
-                currentDirection = (Direction)(((int)currentDirection - 1) % 4);
+                _currentDirection = (Direction)(((int)_currentDirection - 1) % 4);
         }
         private void Rotate180() 
         {
-            currentDirection = (Direction)(((int)currentDirection + 2) % 4);
+            _currentDirection = (Direction)(((int)_currentDirection + 2) % 4);
         }
 
         private Vector2Int GetMoveDelta()
         {
-            return currentDirection switch
+            return _currentDirection switch
             {
                 Direction.Up => new Vector2Int(0, 1),
                 Direction.Down => new Vector2Int(0, -1),
@@ -85,7 +85,7 @@ namespace LevelGeneration
         }
         private void SetRandomDirection() 
         {
-            currentDirection = (Direction)Random.Range(0, 3);
+            _currentDirection = (Direction)Random.Range(0, 3);
         }
         
         private enum Direction 

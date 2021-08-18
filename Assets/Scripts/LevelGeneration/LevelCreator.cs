@@ -52,7 +52,7 @@ namespace LevelGeneration
 
         private void RemoveSingleCells()
         {
-            for (int k = 0; k < 5; k++)
+            for (int k = 0; k < 10; k++)
             {
                 for (int i = 1; i < _levelCells.GetLength(0) - 2; i++)
                 {

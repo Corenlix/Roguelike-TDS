@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSize: 64
   splitTimes: 4
-  walkerRoomPart: 0
+  walkerRoomPart: 627
   walkerRotate90Chance: 78
   walkerRotate180Chance: 19
   minRoomSizePercent: 49
