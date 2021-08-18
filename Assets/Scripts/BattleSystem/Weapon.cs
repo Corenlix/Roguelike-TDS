@@ -1,4 +1,5 @@
 using System;
+using BattleSystem.BulletShoots;
 using Helpers;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class Weapon : MonoBehaviour
     private static readonly int ShootTriggerId = Animator.StringToHash("Shoot");
     private float _reloadTimeRemain;
 
-    private WeaponShooter _weaponShooter;
+    private WeaponShoot weaponShoot;
     
     public bool TryShoot(Vector2 targetPosition)
     {
@@ -51,7 +52,7 @@ public class Weapon : MonoBehaviour
     
     private void Init()
     {
-        _weaponShooter = WeaponShooterCreator.CreateWeaponShooter(weaponStats.WeaponShooterType);
+        weaponShoot = WeaponShootCreator.CreateWeaponShooter(weaponStats.WeaponShooterType);
         weaponSpriteRenderer.sprite = weaponStats.Sprite;
         _reloadTimeRemain = weaponStats.ReloadTime;
     }
@@ -63,7 +64,7 @@ public class Weapon : MonoBehaviour
     
     private void Shoot(Vector2 direction)
     {
-        _weaponShooter.Shoot(shootPoint, direction, weaponStats.BulletTemplate, weaponStats.AttackParams);
+        weaponShoot.Shoot(shootPoint, direction, weaponStats.BulletTemplate, weaponStats.AttackParams);
     }
 
     private void Reload()
