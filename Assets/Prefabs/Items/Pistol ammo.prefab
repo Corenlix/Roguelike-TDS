@@ -126,6 +126,8 @@ MonoBehaviour:
   itemName: Pistol ammo
   pickText: +10 pistol ammo
   needPressPickButton: 0
+  itemCommands:
+  - {fileID: 7227581931271628085}
 --- !u!114 &7227581931271628085
 MonoBehaviour:
   m_ObjectHideFlags: 0

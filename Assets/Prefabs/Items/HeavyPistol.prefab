@@ -126,6 +126,8 @@ MonoBehaviour:
   itemName: Heavy pistol
   pickText: Heavy pistol
   needPressPickButton: 1
+  itemCommands:
+  - {fileID: 5216716593983990772}
 --- !u!114 &5216716593983990772
 MonoBehaviour:
   m_ObjectHideFlags: 0
