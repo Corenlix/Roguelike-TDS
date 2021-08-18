@@ -349,11 +349,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomWalkDistance: 3
   randomWalkPeriod: 2
-  enterChaseStateDistance: 10
+  enterChaseStateDistance: 12
   chaseMinPeriod: 1
   chaseMaxPeriod: 20
   enemyAbility: {fileID: 4105553803034695919}
-  exitChaseStateDistance: 10
+  exitChaseStateDistance: 20
   moverToPosition: {fileID: 5671572111481564388}
 --- !u!1 &5878817071380384486
 GameObject:

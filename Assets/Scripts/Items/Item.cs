@@ -1,28 +1,28 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 
-[Serializable]
-[RequireComponent(typeof(ItemAction))]
-[RequireComponent(typeof(Collider2D))]
-public class Item : MonoBehaviour
+namespace Items
 {
-    public string ItemName => itemName;
-    [SerializeField] private string itemName;
-    public string PickText => pickText;
-    [SerializeField] private string pickText;
-    public bool NeedPressPickButton => needPressPickButton;
-    [SerializeField] private bool needPressPickButton = false;
-    
-    public void OnPick(Player player)
+    [Serializable]
+    [RequireComponent(typeof(ItemCommand))]
+    [RequireComponent(typeof(Collider2D))]
+    public class Item : MonoBehaviour
     {
-        foreach (var itemAction in GetComponents<ItemAction>())
+        public string ItemName => itemName;
+        [SerializeField] private string itemName;
+        public string PickText => pickText;
+        [SerializeField] private string pickText;
+        [SerializeField] private bool needPressPickButton = false;
+        public bool NeedPressPickButton => needPressPickButton;
+        [SerializeField] private ItemCommand[] itemCommands;
+
+        public void OnPick(Player player)
         {
-            itemAction.Activate(player);
+            foreach (var itemCommand in itemCommands)
+            {
+                itemCommand.Execute(player);
+            }
+            Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

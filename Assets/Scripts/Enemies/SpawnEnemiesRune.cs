@@ -1,27 +1,37 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Enemies;
 using UnityEngine;
-using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public class SpawnEnemiesRune : MonoBehaviour
+namespace Enemies
 {
-    [SerializeField] private Transform[] spawnPoints;
-    [SerializeField] private Animator animator;
-    private EnemyFactory _enemyFactory;
-    private static readonly int Spawned = Animator.StringToHash("Spawned");
-    private bool _activated;
-    
-    public void SetEnemyFactory(EnemyFactory enemyFactory)
+    public class SpawnEnemiesRune : MonoBehaviour
     {
-        _enemyFactory = enemyFactory;
-    }
+        [SerializeField] private Transform[] spawnPoints;
+        [SerializeField] private Animator animator;
+        private EnemyFactory _enemyFactory;
+        private static readonly int Spawned = Animator.StringToHash("Spawned");
+        private bool _activated;
     
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (!_activated && other.TryGetComponent(out Player player))
+        public void SetEnemyFactory(EnemyFactory enemyFactory)
+        {
+            _enemyFactory = enemyFactory;
+        }
+    
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (!_activated && other.TryGetComponent(out Player player))
+            {
+                SpawnEnemies();
+            }
+        }
+
+        private IEnumerator SpawnEnemy(Vector2 position, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            _enemyFactory.CreateEnemy(position);
+        }
+
+        private void SpawnEnemies()
         {
             _activated = true;
             foreach (var spawnPoint in spawnPoints)
@@ -31,11 +41,5 @@ public class SpawnEnemiesRune : MonoBehaviour
 
             animator.SetTrigger(Spawned);
         }
-    }
-
-    private IEnumerator SpawnEnemy(Vector2 position, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        _enemyFactory.CreateEnemy(position);
     }
 }

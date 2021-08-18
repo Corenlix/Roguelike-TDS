@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Items;
 using TMPro;
 using UI;
 using UnityEngine;

@@ -383,8 +383,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomWalkDistance: 5
   randomWalkPeriod: 3
-  enterChaseStateDistance: 20
-  exitChaseStateDistance: 30
+  enterChaseStateDistance: 8
+  exitChaseStateDistance: 16
   moverToPosition: {fileID: 1379893243021865305}
 --- !u!114 &1379893243021865299
 MonoBehaviour:
