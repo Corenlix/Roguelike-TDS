@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Enemies.StateMachine.Conditions;
 using Enemies.StateMachine.States;
 using UnityEngine;
@@ -20,15 +19,18 @@ namespace Enemies.StateMachine
         private void Awake()
         {
             var randomWalkState = new RandomWalkState(transform, moverToPosition, randomWalkDistance, randomWalkPeriod);
-        
-            var chaseState = new MeleeTargetChaseState(transform, moverToPosition, EnemiesTarget.Instance.GetTargetPosition);
             var nearCondition = new DistanceNearCondition(() => transform.position,
                 EnemiesTarget.Instance.GetTargetPosition, enterChaseStateDistance);
+            
+            
+            var chaseState = new MeleeTargetChaseState(transform, moverToPosition, EnemiesTarget.Instance.GetTargetPosition);
             var farCondition = new DistanceFarCondition(() => transform.position,
                 EnemiesTarget.Instance.GetTargetPosition, exitChaseStateDistance);
-            chaseState.SetConditions(new List<Condition> {nearCondition}, new List<Condition> {farCondition});
+            
+            randomWalkState.SetTransitions(new Transition(chaseState, nearCondition));
+            chaseState.SetTransitions(new Transition(randomWalkState, farCondition));
         
-            Init(randomWalkState, new List<State> {randomWalkState, chaseState});
+            Init(randomWalkState);
         }
     }
 }

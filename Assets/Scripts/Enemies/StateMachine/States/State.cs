@@ -6,16 +6,23 @@ namespace Enemies.StateMachine.States
 {
     public abstract class State
     {
-        private List<Condition> _conditionsToEnter;
-        private List<Condition> _conditionsToExit;
-        
-        public bool IsReadyToEnter => _conditionsToEnter?.All(condition => condition.IsConditionMet()) ?? true;
-        public bool IsReadyToExit => _conditionsToExit?.All(condition => condition.IsConditionMet()) ?? true;
+        private Transition[] _transitions;
 
-        public void SetConditions(List<Condition> conditionsToEnter, List<Condition> conditionsToExit)
+        public bool IsReadyToTransit(out State nextState)
         {
-            _conditionsToEnter = conditionsToEnter;
-            _conditionsToExit = conditionsToExit;
+            foreach (var transition in _transitions)
+            {
+                if (transition.IsReadyToTransit(out nextState))
+                    return true;
+            }
+
+            nextState = null;
+            return false;
+        }
+
+        public void SetTransitions(params Transition[] transitions)
+        {
+            _transitions = transitions;
         }
         
         public abstract void Enter();

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Enemies.StateMachine.States;
 using UnityEngine;
 
@@ -8,13 +6,11 @@ namespace Enemies.StateMachine
     public abstract class EnemyStateMachine : MonoBehaviour
     {
         private State _defaultState;
-        private List<State> _states;
         private State _currentState;
 
-        protected void Init(State defaultState, List<State> states)
+        protected void Init(State defaultState)
         {
             _defaultState = defaultState;
-            _states = states;
         }
         
         private void OnEnable()
@@ -29,27 +25,17 @@ namespace Enemies.StateMachine
         private void Update()
         {
             _currentState.Tick();
-            
-            if (!_currentState.IsReadyToExit)
-                return;
-            
-            foreach (var state in _states)
+
+            if (_currentState.IsReadyToTransit(out State nextState))
             {
-                if (state != _currentState && state.IsReadyToEnter)
-                {
-                    SetActiveState(state);
-                    return;
-                }
+                SetActiveState(nextState);
             }
         }
 
         private void SetActiveState(State state)
         {
-            if (_currentState != null)
-            {
-                _currentState.Exit();
-            }
-
+            if (state == null) return;
+            _currentState?.Exit();
             _currentState = state;
             _currentState.Enter();
         }

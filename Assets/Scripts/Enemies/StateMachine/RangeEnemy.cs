@@ -23,15 +23,17 @@ namespace Enemies.StateMachine
         private void Awake()
         {
             var randomWalkState = new RandomWalkState(transform, moverToPosition, randomWalkDistance, randomWalkPeriod);
+            var farCondition = new DistanceFarCondition(() => transform.position,
+                EnemiesTarget.Instance.GetTargetPosition, exitChaseStateDistance);
             
             var chaseState = new ChaseTargetState(transform, EnemiesTarget.Instance.GetTargetPosition, moverToPosition, enemyAbility, chaseMinPeriod, chaseMaxPeriod);
             var nearCondition = new DistanceNearCondition(() => transform.position,
                 EnemiesTarget.Instance.GetTargetPosition, enterChaseStateDistance);
-            var farCondition = new DistanceFarCondition(() => transform.position,
-                EnemiesTarget.Instance.GetTargetPosition, exitChaseStateDistance);
-            chaseState.SetConditions(new List<Condition> {nearCondition}, new List<Condition> {farCondition});
             
-            Init(randomWalkState, new List<State> {randomWalkState, chaseState});
+            randomWalkState.SetTransitions(new Transition(chaseState, nearCondition));
+            chaseState.SetTransitions(new Transition(randomWalkState, farCondition));
+
+            Init(randomWalkState);
         }
     }
 }
